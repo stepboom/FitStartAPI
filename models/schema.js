@@ -3,21 +3,19 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
 let userSchema = new Schema({
-    email : String,
-})
-
-/*
-let userSchema = new Schema({
-    email : {
+    username : {
         type : String
     },
     password : {
         type : String
     },
-    firstname : {
+    email : {
         type : String
     },
-    lastname : {
+    first_name : {
+        type : String
+    },
+    last_name : {
         type : String
     },
     gender : {
@@ -26,12 +24,11 @@ let userSchema = new Schema({
     address : {
         type : String
     },
-    telephoneNumber : {
+    telephone_number : {
         type : String
     }
 })
-*/
 
-let User = mongoose.model('users', userSchema)
+let User = mongoose.model('User', userSchema)
 
 module.exports = {User : User}

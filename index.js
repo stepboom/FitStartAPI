@@ -5,7 +5,8 @@ var mongoose = require('mongoose')
 var morgan = require('morgan')
 
 //Declare Sub Module Dependencies
-var user = require('./routes/User')
+var user = require('./routes/user')
+var mock = require('./routes/mock')
 
 //Initialize MongoDB Connection
 mongoose.connect('mongodb://localhost/fitstartdb', {
@@ -20,6 +21,7 @@ var app = express()
 app.use(cors())
 app.use(morgan('dev'))
 app.use(user)
+app.use(mock)
 
 app.get('/',(req,res)=>{
     res.status(200).json('Welcome to Fit Start API')
