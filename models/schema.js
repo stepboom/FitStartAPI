@@ -1,7 +1,13 @@
 var mongoose = require('mongoose')
 var crypto = require('crypto')
 
+
 var Schema = mongoose.Schema
+
+var validateLocalStrategyPassword = function(password) {
+	return (this.provider !== 'local' || (password && password.length > 6));
+};
+
 
 let userSchema = new Schema({
     username : {
@@ -10,7 +16,8 @@ let userSchema = new Schema({
     },
     password : {
         type : String,
-        required: 'Please fill in a password'
+        required: 'Please fill in a password',
+		validate: [validateLocalStrategyPassword, 'Password should be longer']
     },
     email : {
         type : String,
