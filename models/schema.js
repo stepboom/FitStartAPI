@@ -26,6 +26,9 @@ let userSchema = new Schema({
     },
     telephone_number : {
         type : String
+    },
+    role :{
+        type : String
     }
 })
 

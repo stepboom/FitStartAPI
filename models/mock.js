@@ -12,7 +12,8 @@ var Entities = {
             last_name : 'Dorothee',
             gender : 'Male',
             address : 'Nowhere',
-            telephone_number : '0811234567'
+            telephone_number : '0811234567',
+            role : 'Trainer'
         },
         {
             username : 'test2',
@@ -22,7 +23,8 @@ var Entities = {
             last_name : 'Burkley',
             gender : 'Female',
             address : 'Nowhere',
-            telephone_number : '0898765432'
+            telephone_number : '0898765432',
+            role : 'Trainee'
         }
     ]
 

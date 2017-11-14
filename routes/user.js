@@ -12,4 +12,14 @@ router.get('/users',(req,res)=>{
     })
 })
 
+router.get('/search',(req,res)=>{
+    let username = req.query.username
+    User.find({username : username}).exec((err,results)=>{
+        if(results)
+            res.json({users : results})
+        else
+            res.json('No Users')
+    })
+})
+
 module.exports = router
