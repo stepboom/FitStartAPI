@@ -4,16 +4,23 @@ var Schema = mongoose.Schema
 
 let userSchema = new Schema({
     username : {
-        type : String
+        type : String,
+        required: 'Please fill in a username'
     },
     password : {
-        type : String
+        type : String,
+        required: 'Please fill in a password'
     },
     email : {
-        type : String
+        type : String,
+        match: [/.+\@.+\..+/, 'Please fill a valid email address'],
+        trim: true,
+        required: 'Please fill in a Email'
+
     },
     first_name : {
-        type : String
+        type : String,
+        required: 'Please fill in a Firstname'
     },
     last_name : {
         type : String

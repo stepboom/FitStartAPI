@@ -28,6 +28,11 @@ app.use(bodyParser.urlencoded({
 app.use(user)
 app.use(mock)
 
+
+// use passport session
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.get('/',(req,res)=>{
     res.status(200).json('Welcome to Fit Start API')
 })

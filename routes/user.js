@@ -1,5 +1,6 @@
 var express = require('express')
 var {User} = require('../models/schema')
+var passport = require('passport')
 
 var router = express.Router()
 
@@ -22,20 +23,6 @@ router.get('/search',(req,res)=>{
     })
 })
 
-/*router.put('/users/:id',function(req,res){
-    User.findOneAndUpdate(
-        {_id:req.params.id},
-        {$set: {title: req.body.title}},
-        {upsert: true},(err, newBook) =>{
-            if(err){
-                console.log('error occured');
-            } else{
-                console.log(newBook);
-                res.status(204);
-            }
-        })
-})*/
-
 router.post('/signup', (req,res)=>{
     let newUser = new User();
     newUser.username = req.body.username
@@ -56,5 +43,26 @@ router.post('/signup', (req,res)=>{
         }
     })
 })
+
+router.post('/signin',(req,res)=>{{
+	passport.authenticate('local', function(err, user, info) {
+		if (err || !user) {
+			res.status(400).send(info);
+		} else {
+			// Remove sensitive data before login
+			user.password = undefined;
+			//user.salt = undefined;
+
+			req.login(user, function(err) {
+				if (err) {
+					res.status(400).send(err);
+				} else {
+					res.json(user);
+				}
+			});
+		}
+	})(req, res, next);
+}});
+
 
 module.exports = router
