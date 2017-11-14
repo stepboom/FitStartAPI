@@ -4,6 +4,7 @@ var cors = require('cors')
 var express = require('express')
 var mongoose = require('mongoose')
 var morgan = require('morgan')
+var passport = require('passport')
 
 //Declare Sub Module Dependencies
 var user = require('./routes/user')
@@ -25,13 +26,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended:true
 }))
-app.use(user)
-app.use(mock)
 
-
-// use passport session
+// Use Passport Session
 app.use(passport.initialize());
 app.use(passport.session());
+require('./passport')(passport)
+
+// Use Express Router
+app.use(user)
+app.use(mock)
 
 app.get('/',(req,res)=>{
     res.status(200).json('Welcome to Fit Start API')

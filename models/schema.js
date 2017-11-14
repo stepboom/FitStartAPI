@@ -39,6 +39,10 @@ let userSchema = new Schema({
     }
 })
 
+userSchema.methods.authenticate = function(password){
+    return this.password = password;
+}
+
 let User = mongoose.model('User', userSchema)
 
 module.exports = {User : User}

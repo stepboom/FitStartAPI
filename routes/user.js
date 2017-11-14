@@ -44,7 +44,7 @@ router.post('/signup', (req,res)=>{
     })
 })
 
-router.post('/signin',(req,res)=>{{
+router.post('/signin',(req,res,next)=>{{
 	passport.authenticate('local', function(err, user, info) {
 		if (err || !user) {
 			res.status(400).send(info);
