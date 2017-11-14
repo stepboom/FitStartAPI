@@ -37,7 +37,20 @@ router.post('/signup', (req,res)=>{
 
     newUser.save((err,results)=>{
         if(results){
-            res.json(results)
+            
+
+            user.password = undefined;
+		    user.salt = undefined;
+
+			req.login(user, function(err) {
+				if (err) {
+					res.status(400).send(err);
+				} else {
+					res.json(user);
+				}
+			});
+
+
         } else {
             res.json('Error Saving Users')
         }
@@ -51,7 +64,7 @@ router.post('/signin',(req,res)=>{{
 		} else {
 			// Remove sensitive data before login
 			user.password = undefined;
-			//user.salt = undefined;
+		    user.salt = undefined;
 
 			req.login(user, function(err) {
 				if (err) {
