@@ -1,4 +1,5 @@
 var mongoose = require('mongoose')
+var crypto = require('crypto')
 
 var Schema = mongoose.Schema
 
@@ -36,12 +37,32 @@ let userSchema = new Schema({
     },
     role :{
         type : String
-    }
+    },
+    salt: {
+		type: String
+	}
 })
 
-userSchema.methods.authenticate = function(password){
-    return this.password = password;
+userSchema.pre('save', function(next) {
+	if (this.password && this.password.length > 6) {
+		this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
+		this.password = this.hashPassword(this.password);
+	}
+
+	next();
+});
+
+userSchema.methods.hashPassword = function(password){
+    if (this.salt && password){
+        return crypto.pbkdf2Sync(password,this.salt,10000,64).toString('base64')
+    } else {
+        return password
+    }
 }
+
+userSchema.methods.authenticate = function(password) {
+	return this.password === this.hashPassword(password);
+};
 
 let User = mongoose.model('User', userSchema)
 
