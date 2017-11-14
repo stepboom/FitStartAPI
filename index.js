@@ -1,4 +1,5 @@
 //Declare Node Module Dependencies
+var bodyParser = require('body-parser');
 var cors = require('cors')
 var express = require('express')
 var mongoose = require('mongoose')
@@ -20,6 +21,10 @@ var app = express()
 
 app.use(cors())
 app.use(morgan('dev'))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended:true
+}))
 app.use(user)
 app.use(mock)
 
