@@ -45,7 +45,7 @@ router.post('/signup', (req,res)=>{
 				if (err) {
 					res.status(400).send(err);
 				} else {
-					res.json(newUser);
+					res.json({user : newUser});
 				}
 			});
 
@@ -69,7 +69,7 @@ router.post('/signin',(req,res,next)=>{{
 				if (err) {
 					res.status(400).send(err);
 				} else {
-					res.json(user);
+					res.json({user : user});
 				}
 			});
 		}
