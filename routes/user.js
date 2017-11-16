@@ -37,8 +37,8 @@ router.post('/signup', (req,res)=>{
 
     newUser.save((err,results)=>{
         if(results){
-        
-            newUser.password = undefined;
+
+        newUser.password = undefined;
 		    newUser.salt = undefined;
 
 			req.login(newUser, function(err) {
@@ -51,7 +51,7 @@ router.post('/signup', (req,res)=>{
 
 
         } else {
-            res.json('Error Saving Users')
+            res.json('Error Saving Users ' + err)
         }
     })
 })
@@ -76,5 +76,61 @@ router.post('/signin',(req,res,next)=>{{
 	})(req, res, next);
 }});
 
+router.post('/resetpassword', (req, res) => {
+  var passwordDetails = req.body;
+  //mockup functon
+	if (req.user) {
+		if (passwordDetails.newPassword) {
+			User.findById(req.user.id, function(err, user) {
+				if (!err && user) {
+					if (user.authenticate(passwordDetails.currentPassword)) {
+						if (passwordDetails.newPassword === passwordDetails.verifyPassword) {
+							user.password = passwordDetails.newPassword;
+
+							user.save(function(err) {
+								if (err) {
+									return res.status(400).send({
+										message: errorHandler.getErrorMessage(err)
+									});
+								} else {
+									req.login(user, function(err) {
+										if (err) {
+											res.status(400).send(err);
+										} else {
+											res.send({
+												message: 'Password changed successfully'
+											});
+										}
+									});
+								}
+							});
+						} else {
+							res.status(400).send({
+								message: 'Passwords do not match'
+							});
+						}
+					} else {
+						res.status(400).send({
+							message: 'Current password is incorrect'
+						});
+					}
+				} else {
+					res.status(400).send({
+						message: 'User is not found'
+					});
+				}
+			});
+		} else {
+			res.status(400).send({
+				message: 'Please provide a new password'
+			});
+		}
+	} else {
+		res.status(400).send({
+			message: 'User is not signed in'
+		});
+	}
+
+})
 
 module.exports = router
