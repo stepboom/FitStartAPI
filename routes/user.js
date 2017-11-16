@@ -155,11 +155,14 @@ router.post('/resetPassword',(req,res)=>{
 	User.findOne({resetPasswordToken : token},(err,user)=>{
 		if(user){
 			user.password = password
-			user.save((err)=>{
-				if(err)
+			user.save((err,user)=>{
+				if(err){
 					res.json({success : false})
-				else
+				}
+				else{
 					res.json({success : true})
+				}
+					
 			})
 		} else {
 			res.json({success : false})

@@ -11,6 +11,7 @@ var validateLocalStrategyPassword = function(password) {
 
 let userSchema = new Schema({
     username : {
+        unique : true,
         type : String,
         required: 'Please fill in a username'
     },
@@ -20,6 +21,7 @@ let userSchema = new Schema({
 		validate: [validateLocalStrategyPassword, 'Password should be longer']
     },
     email : {
+        unique : true,
         type : String,
         match: [/.+\@.+\..+/, 'Please fill a valid email address'],
         trim: true,
@@ -54,9 +56,9 @@ let userSchema = new Schema({
 })
 
 userSchema.pre('save', function(next) {
-	if (this.password && this.password.length > 6) {
+	if (this.password && this.password.length > 7) {
 		this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
-		this.password = this.hashPassword(this.password);
+        this.password = this.hashPassword(this.password);
 	}
 
 	next();
