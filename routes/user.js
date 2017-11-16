@@ -1,6 +1,9 @@
 var express = require('express')
 var {User} = require('../models/schema')
 var passport = require('passport')
+var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
+var crypto = require('crypto')
 
 var router = express.Router()
 
@@ -21,6 +24,75 @@ router.get('/search',(req,res)=>{
         else
             res.json('No Users')
     })
+})
+
+router.get('/users/:email',(req,res)=>{
+	let email = req.params.email
+	User.findOne({email : email},(err,results)=>{
+		if(results){
+			res.json({hasEmail : true})
+		} else {
+			res.json({hasEmail : false})
+		}
+	})
+})
+
+router.get('/reset/:token',(req,res)=>{
+	let token = req.params.token
+	User.findOne({resetPasswordToken : token},(err,results)=>{
+		if(results){
+			res.json({hasToken : true})
+		} else {
+			res.json({hasToken : false})
+		}
+	})
+})
+
+router.post('/forgetPassword',(req,res)=>{
+	var email = req.body.email
+	
+	var transporter = nodemailer.createTransport(smtpTransport({
+		service: 'gmail',
+		auth: {
+			user: 'supakritboom@gmail.com',
+			pass: 'qwer][po'
+		}
+	}))
+
+	crypto.randomBytes(20, (err, buf) => {
+		var token = buf.toString('hex')
+		User.findOne({ email: email }, (err, user)=> {
+			if (!user) {
+				res.send({success : false})
+			}
+	
+			user.resetPasswordToken = token;
+	
+			user.save((err)=>{
+				if(err){
+					res.send({success : false})
+				} else {
+					var mailOptions = {
+						from: 'supakritboom@gmail.com',
+						to: email,
+						subject: 'ยืนยันการเปลี่ยนรหัสผ่านจากระบบ FitStart',
+						text: `กรุณาคลิกที่ลิ้งก์ http://localhost:3000/newpassword/${token} เพื่อเข้าสู่การตั้งรหัสผ่านใหม่`
+					};
+					  
+					transporter.sendMail(mailOptions, function(error, info){
+					if (error) {
+						console.log(error)
+						res.send({message : 'success'})
+					} else {
+						res.send({message : 'fail'})
+						console.log('Email sent: ' + info.response);
+					}
+					});
+				}
+			})
+		  })
+	})
+
 })
 
 router.post('/signup', (req,res)=>{
@@ -76,7 +148,27 @@ router.post('/signin',(req,res,next)=>{{
 	})(req, res, next);
 }});
 
-router.post('/resetpassword', (req, res) => {
+router.post('/resetPassword',(req,res)=>{
+	var password = req.body.password
+	let token = req.body.token
+
+	User.findOne({resetPasswordToken : token},(err,user)=>{
+		if(user){
+			user.password = password
+			user.save((err)=>{
+				if(err)
+					res.json({success : false})
+				else
+					res.json({success : true})
+			})
+		} else {
+			res.json({success : false})
+		}
+	})
+	
+})
+
+router.post('/renewPassword', (req, res) => {
   var passwordDetails = req.body;
   //mockup functon
 	if (req.user) {

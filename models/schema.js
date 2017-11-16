@@ -47,7 +47,10 @@ let userSchema = new Schema({
     },
     salt: {
 		type: String
-	}
+    },
+    resetPasswordToken: {
+        type: String
+    }
 })
 
 userSchema.pre('save', function(next) {
