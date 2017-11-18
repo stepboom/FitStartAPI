@@ -55,37 +55,37 @@ let userSchema = new Schema({
     }
 })
 
-let serviceSchema = new Schema({
-    type: {
-        type: String,
-        required: 'Please fill service type'
-    },
-    experience: {
-        type: String       
-    },
-    preferredLocation : {
-        type: String,
-        required: 'Please fill location'
-    },
-    price: {
-        type: String,
-        required: 'Please fill the price'
-    },
-    availableTimeSlot: {
-        type: String,
-        required: 'Please fill available time slot'
-    }
-})
+// let serviceSchema = new Schema({
+//     type: {
+//         type: String,
+//         required: 'Please fill service type'
+//     },
+//     experience: {
+//         type: String       
+//     },
+//     preferredLocation : {
+//         type: String,
+//         required: 'Please fill location'
+//     },
+//     price: {
+//         type: String,
+//         required: 'Please fill the price'
+//     },
+//     availableTimeSlot: {
+//         type: String,
+//         required: 'Please fill available time slot'
+//     }
+// })
 
-let trainerSchema = new Schema({
-    status: {
-        type: String,
-        required: 'Please fill status'
-    },
-    rating: {
-        type: String
-    }
-})
+// let trainerSchema = new Schema({
+//     status: {
+//         type: String,
+//         required: 'Please fill status'
+//     },
+//     rating: {
+//         type: String
+//     }
+// })
 
 userSchema.pre('save', function(next) {
 	if (this.password && this.password.length > 7) {
@@ -110,10 +110,10 @@ userSchema.methods.authenticate = function(password) {
 
 let User = mongoose.model('User', userSchema)
 
-let Service = mongoose.model('Service', serviceSchema)
-let Trainer = mongoose.model('Trainer', trainerSchema)
+// let Service = mongoose.model('Service', serviceSchema)
+// let Trainer = mongoose.model('Trainer', trainerSchema)
 
 module.exports = { User: User }
 
-module.exports = { Service: Service }
-module.exports = { Trainer: Trainer }
+// module.exports = { Service: Service }
+// module.exports = { Trainer: Trainer }

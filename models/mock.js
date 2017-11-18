@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
 var { User } = require('./schema')
-var { Service } = require('./schema')
-var { Trainer } = require('./schema')
+// var { Service } = require('./schema')
+// var { Trainer } = require('./schema')
 
 var Entities = {
 
@@ -29,33 +29,33 @@ var Entities = {
             role : 'Trainee'
         }
     ]
-    ,
-    Service : [
-        {
-            type : 'type1',
-            experience : '0',
-            preferredLocation : 'Bangkok',
-            price : '2000',
-            availableTimeSlot : '14.00-16.00'
-        },
-        {
-            type : 'type2',
-            experience : '2',
-            preferredLocation : 'Samutprakarn',
-            price : '5000',
-            availableTimeSlot : '13.00-15.00'
-        }
-    ],
-    Trainer : [
-        {
-            status : 'not available',
-            rating : '7.0'
-        },
-        {
-            status : 'available',
-            rating : '9.1'
-        }
-    ]
+    // ,
+    // Service : [
+    //     {
+    //         type : 'type1',
+    //         experience : '0',
+    //         preferredLocation : 'Bangkok',
+    //         price : '2000',
+    //         availableTimeSlot : '14.00-16.00'
+    //     },
+    //     {
+    //         type : 'type2',
+    //         experience : '2',
+    //         preferredLocation : 'Samutprakarn',
+    //         price : '5000',
+    //         availableTimeSlot : '13.00-15.00'
+    //     }
+    // ],
+    // Trainer : [
+    //     {
+    //         status : 'not available',
+    //         rating : '7.0'
+    //     },
+    //     {
+    //         status : 'available',
+    //         rating : '9.1'
+    //     }
+    // ]
 
 
 }
