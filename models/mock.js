@@ -14,7 +14,8 @@ var Entities = {
             gender : 'Male',
             address : 'Nowhere',
             telephone_number : '0811234567',
-            role : 'Trainer'
+            role : 'Trainer',
+            rating : 3
         },
         {
             _id : 2,
@@ -38,7 +39,8 @@ var Entities = {
             gender : 'Male',
             address : 'Nowhere',
             telephone_number : '0888887889',
-            role : 'Trainer'
+            role : 'Trainer',
+            rating : 5
         }
     ] ,
     Service : [

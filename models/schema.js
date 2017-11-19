@@ -52,6 +52,9 @@ let userSchema = new Schema({
     },
     resetPasswordToken: {
         type: String
+    },
+    rating :{
+        type : Number
     }
 })
 
