@@ -17,10 +17,10 @@ router.get('/users',(req,res)=>{
 })
 
 router.get('/users/search',(req,res)=>{
-    let username = req.query.username
-    User.find({username : username}).exec((err,results)=>{
-        if(results)
-            res.json({users : results})
+    let id = req.query.id
+    User.find({_id : id}).exec((err,result)=>{
+        if(result)
+            res.json({user : result})
         else
             res.json('No Users')
     })
