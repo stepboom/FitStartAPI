@@ -26,6 +26,42 @@ router.get('/users/search',(req,res)=>{
     })
 })
 
+router.get('/trainers/search',(req,res)=>{
+	let name = req.query.name
+
+	let query = {}
+
+	query['$or'] = [
+		{
+			username: {
+				$regex: name,
+				$options: 'i'
+			}
+		},
+		{
+			first_name: {
+				$regex: name,
+				$options: 'i'
+			}
+		},
+		{
+			last_name: {
+				$regex: name,
+				$options: 'i'
+			}
+		}
+	]
+
+	query['role'] = 'Trainer'
+
+    User.find(query).exec((err,results)=>{
+        if(results)
+            res.json({success : true, trainers : results})
+        else
+            res.json({success : false})
+    })
+})
+
 router.get('/users/:email',(req,res)=>{
 	let email = req.params.email
 	User.findOne({email : email},(err,results)=>{

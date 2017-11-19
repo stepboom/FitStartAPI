@@ -41,10 +41,24 @@ var Entities = {
             telephone_number : '0888887889',
             role : 'Trainer',
             rating : 5
+        },
+        {
+            _id : 4,
+            username : 'test4',
+            password : '123',
+            email : 'clairvoyance_demons@gmail.com',
+            first_name : 'Insigne',
+            last_name : 'Goretzka',
+            gender : 'Male',
+            address : 'Nowhere',
+            telephone_number : '0987658877',
+            role : 'Trainer',
+            rating : 4
         }
     ] ,
     Service : [
         {
+            _id : 1,
             trainer : 1,
             name : 'Superman Muscle',
             description : '',
@@ -55,6 +69,7 @@ var Entities = {
             price : '750 - 1000',
         },
         {
+            _id : 2,
             trainer : 1,
             name : 'Unlimited Strength',
             description : '',
@@ -65,6 +80,7 @@ var Entities = {
             price : '500 - 700',
         },
         {
+            _id : 3,
             trainer : 1,
             name : 'Superficial Strength',
             description : '',
@@ -75,6 +91,8 @@ var Entities = {
             price : '200 - 400',
         },
         {
+
+            _id : 4,
             trainer : 1,
             name : 'Captain America Strength',
             description : '',
@@ -85,7 +103,8 @@ var Entities = {
             price : '500 - 700',
         },
         {
-            trainer : 2,
+            _id : 5,
+            trainer : 3,
             name : 'Hawkeye Accuracy Muscle',
             description : '',
             type : 'type2',
@@ -95,7 +114,9 @@ var Entities = {
             price : '300 - 500',
         },
         {
-            trainer : 2,
+
+            _id : 6,
+            trainer : 3,
             name : 'Hulk Muscle',
             description : '',
             type : 'type1',
@@ -103,6 +124,54 @@ var Entities = {
             preferredLocation : 'Pra Pradang',
             province : 'Samutprakarn',
             price : '1500 - 1700',
+        },
+        {
+
+            _id : 7,
+            trainer : 4,
+            name : 'Thor Chest',
+            description : '',
+            type : 'type2',
+            experience : '1',
+            preferredLocation : 'Central World',
+            province : 'Bangkok',
+            price : '2200 - 2500',
+        },
+        {
+
+            _id : 8,
+            trainer : 4,
+            name : 'The Iron Fist',
+            description : '',
+            type : 'type3',
+            experience : '2',
+            preferredLocation : 'Central World',
+            province : 'Bangkok',
+            price : '3500 - 3700',
+        },
+        {
+
+            _id : 9,
+            trainer : 4,
+            name : 'Six Ultimate Pack',
+            description : '',
+            type : 'type1',
+            experience : '1',
+            preferredLocation : 'Chulalongkorn University',
+            province : 'Bangkok',
+            price : '1500 - 1700',
+        },
+        {
+
+            _id : 10,
+            trainer : 4,
+            name : 'Power Stone Strength',
+            description : '',
+            type : 'type2',
+            experience : '1',
+            preferredLocation : 'Chulalongkorn University',
+            province : 'Bangkok',
+            price : '1200 - 1500',
         }
     ],
 

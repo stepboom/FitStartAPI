@@ -116,7 +116,7 @@ let serviceSchema = new Schema({
     },
 })
 
-
+serviceSchema.plugin(autoIncrement.plugin, 'Service')
 
 let Service = mongoose.model('Service', serviceSchema)
 // let Trainer = mongoose.model('Trainer', trainerSchema)
