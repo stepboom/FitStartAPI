@@ -85,7 +85,7 @@ var Entities = {
             price : '500 - 700',
         },
         {
-            trainer : 2,
+            trainer : 3,
             name : 'Hawkeye Accuracy Muscle',
             description : '',
             type : 'type2',
@@ -95,7 +95,7 @@ var Entities = {
             price : '300 - 500',
         },
         {
-            trainer : 2,
+            trainer : 3,
             name : 'Hulk Muscle',
             description : '',
             type : 'type1',
