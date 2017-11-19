@@ -16,7 +16,7 @@ router.get('/users',(req,res)=>{
     })
 })
 
-router.get('/search',(req,res)=>{
+router.get('/users/search',(req,res)=>{
     let username = req.query.username
     User.find({username : username}).exec((err,results)=>{
         if(results)
@@ -95,6 +95,28 @@ router.post('/forgetPassword',(req,res)=>{
 
 })
 
+router.post('/resetPassword',(req,res)=>{
+	var password = req.body.password
+	let token = req.body.token
+
+	User.findOne({resetPasswordToken : token},(err,user)=>{
+		if(user){
+			user.password = password
+			user.save((err,user)=>{
+				if(err){
+					res.json({success : false})
+				}
+				else{
+					res.json({success : true})
+				}
+			})
+		} else {
+			res.json({success : false})
+		}
+	})
+	
+})
+
 router.post('/signup', (req,res)=>{
     let newUser = new User();
     newUser.username = req.body.username
@@ -147,29 +169,6 @@ router.post('/signin',(req,res,next)=>{{
 		}
 	})(req, res, next);
 }});
-
-router.post('/resetPassword',(req,res)=>{
-	var password = req.body.password
-	let token = req.body.token
-
-	User.findOne({resetPasswordToken : token},(err,user)=>{
-		if(user){
-			user.password = password
-			user.save((err,user)=>{
-				if(err){
-					res.json({success : false})
-				}
-				else{
-					res.json({success : true})
-				}
-					
-			})
-		} else {
-			res.json({success : false})
-		}
-	})
-	
-})
 
 router.post('/renewPassword', (req, res) => {
   var passwordDetails = req.body;

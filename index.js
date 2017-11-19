@@ -8,6 +8,7 @@ var passport = require('passport')
 
 //Declare Sub Module Dependencies
 var user = require('./routes/user')
+var service = require('./routes/service')
 var mock = require('./routes/mock')
 
 //Initialize MongoDB Connection
@@ -34,6 +35,7 @@ require('./passport')(passport)
 
 // Use Express Router
 app.use(user)
+app.use(service)
 app.use(mock)
 
 app.get('/',(req,res)=>{

@@ -1,13 +1,13 @@
 var mongoose = require('mongoose')
 var crypto = require('crypto')
-
-
 var Schema = mongoose.Schema
+var autoIncrement = require('mongoose-auto-increment');
 
 var validateLocalStrategyPassword = function(password) {
-	return (this.provider !== 'local' || (password && password.length > 6));
+	return (this.provider !== 'local' || (password && password.length > 7));
 };
 
+autoIncrement.initialize(mongoose.connection);
 
 let userSchema = new Schema({
     username : {
@@ -55,38 +55,6 @@ let userSchema = new Schema({
     }
 })
 
-// let serviceSchema = new Schema({
-//     type: {
-//         type: String,
-//         required: 'Please fill service type'
-//     },
-//     experience: {
-//         type: String       
-//     },
-//     preferredLocation : {
-//         type: String,
-//         required: 'Please fill location'
-//     },
-//     price: {
-//         type: String,
-//         required: 'Please fill the price'
-//     },
-//     availableTimeSlot: {
-//         type: String,
-//         required: 'Please fill available time slot'
-//     }
-// })
-
-// let trainerSchema = new Schema({
-//     status: {
-//         type: String,
-//         required: 'Please fill status'
-//     },
-//     rating: {
-//         type: String
-//     }
-// })
-
 userSchema.pre('save', function(next) {
 	if (this.password && this.password.length > 7) {
 		this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
@@ -108,12 +76,59 @@ userSchema.methods.authenticate = function(password) {
 	return this.password === this.hashPassword(password);
 };
 
+userSchema.plugin(autoIncrement.plugin, 'User')
+
 let User = mongoose.model('User', userSchema)
 
-// let Service = mongoose.model('Service', serviceSchema)
+let serviceSchema = new Schema({
+    trainer : {
+        type: String,
+        required : 'Please fill service trainer'
+    },
+    name : {
+        type : String,
+        required : 'Please fill service name'
+    },
+    description : {
+        type : String,
+    },
+    type: {
+        type: String,
+        required: 'Please fill service type'
+    },
+    experience: {
+        type: String       
+    },
+    preferredLocation : {
+        type: String,
+        required: 'Please fill location'
+    },
+    province : {
+        type: String,
+        required: 'Please fill province'
+    },
+    price: {
+        type: String,
+        required: 'Please fill the price'
+    },
+})
+
+
+
+let Service = mongoose.model('Service', serviceSchema)
 // let Trainer = mongoose.model('Trainer', trainerSchema)
 
-module.exports = { User: User }
+// let trainerSchema = new Schema({
+//     status: {
+//         type: String,
+//         required: 'Please fill status'
+//     },
+//     rating: {
+//         type: String
+//     }
+// })
+
+module.exports = { User: User, Service : Service }
 
 // module.exports = { Service: Service }
 // module.exports = { Trainer: Trainer }
