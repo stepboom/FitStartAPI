@@ -7,7 +7,7 @@ var Entities = {
         {
             _id : 1,
             username : 'test1',
-            password : '123',
+            password : '12345678',
             email : 'marcus_dorothee@hotmail.com',
             first_name : 'Marcus',
             last_name : 'Dorothee',
@@ -20,7 +20,7 @@ var Entities = {
         {
             _id : 2,
             username : 'test2',
-            password : '123',
+            password : '12345678',
             email : 'dennis_burkley@gmail.com',
             first_name : 'Dennis',
             last_name : 'Burkley',
@@ -32,7 +32,7 @@ var Entities = {
         {
             _id : 3,
             username : 'test3',
-            password : '123',
+            password : '12345678',
             email : 'incognito_leo@gmail.com',
             first_name : 'Sophia',
             last_name : 'Prometheus',
@@ -45,7 +45,7 @@ var Entities = {
         {
             _id : 4,
             username : 'test4',
-            password : '123',
+            password : '12345678',
             email : 'clairvoyance_demons@gmail.com',
             first_name : 'Insigne',
             last_name : 'Goretzka',
