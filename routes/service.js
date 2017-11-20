@@ -60,10 +60,19 @@ router.post('/services/search',(req,res)=>{
     })
 })
 
-router.get('/services/:trainer',(req,res)=>{
+router.get('/services/trainer/:trainer',(req,res)=>{
 	Service.find({trainer : req.params.trainer}).exec((err,results)=>{
         if(results)
             res.json({success : true, services : results})
+        else
+            res.json({success : false})
+    })
+})
+
+router.get('/services/:id',(req,res)=>{
+	Service.findOne({_id : req.params.id}).exec((err,result)=>{
+        if(result)
+            res.json({success : true, service : result})
         else
             res.json({success : false})
     })
