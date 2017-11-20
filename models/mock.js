@@ -1,6 +1,8 @@
 var mongoose = require('mongoose')
 var { User, Service } = require('./schema')
 
+var description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac odio in mauris blandit pretium sit amet eu justo. Curabitur vestibulum, tellus a interdum vehicula, nunc magna vestibulum massa, viverra condimentum nisi elit id nunc. Fusce ultrices dictum accumsan. Suspendisse pretium porta diam ac accumsan. Donec mauris orci, volutpat quis iaculis eget, aliquet nec arcu. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam mattis urna magna, sed mattis massa ornare vitae. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam a lorem turpis."
+
 var Entities = {
 
     User : [
@@ -61,7 +63,7 @@ var Entities = {
             _id : 1,
             trainer : 1,
             name : 'Superman Muscle',
-            description : '',
+            description : description,
             type : 'type1',
             experience : '0',
             preferredLocation : 'Siam Paragon',
@@ -72,7 +74,7 @@ var Entities = {
             _id : 2,
             trainer : 1,
             name : 'Unlimited Strength',
-            description : '',
+            description : description,
             type : 'type2',
             experience : '2',
             preferredLocation : 'Bangkapi',
@@ -83,7 +85,7 @@ var Entities = {
             _id : 3,
             trainer : 1,
             name : 'Superficial Strength',
-            description : '',
+            description : description,
             type : 'type3',
             experience : '1',
             preferredLocation : 'Pra Pradang',
@@ -95,7 +97,7 @@ var Entities = {
             _id : 4,
             trainer : 1,
             name : 'Captain America Strength',
-            description : '',
+            description : description,
             type : 'type1',
             experience : '1',
             preferredLocation : 'Timeless',
@@ -106,7 +108,7 @@ var Entities = {
             _id : 5,
             trainer : 3,
             name : 'Hawkeye Accuracy Muscle',
-            description : '',
+            description : description,
             type : 'type2',
             experience : '4',
             preferredLocation : 'Samrong',
@@ -118,7 +120,7 @@ var Entities = {
             _id : 6,
             trainer : 3,
             name : 'Hulk Muscle',
-            description : '',
+            description : description,
             type : 'type1',
             experience : '5',
             preferredLocation : 'Pra Pradang',
@@ -130,7 +132,7 @@ var Entities = {
             _id : 7,
             trainer : 4,
             name : 'Thor Chest',
-            description : '',
+            description : description,
             type : 'type2',
             experience : '1',
             preferredLocation : 'Central World',
@@ -142,7 +144,7 @@ var Entities = {
             _id : 8,
             trainer : 4,
             name : 'The Iron Fist',
-            description : '',
+            description : description,
             type : 'type3',
             experience : '2',
             preferredLocation : 'Central World',
@@ -154,7 +156,7 @@ var Entities = {
             _id : 9,
             trainer : 4,
             name : 'Six Ultimate Pack',
-            description : '',
+            description : description,
             type : 'type1',
             experience : '1',
             preferredLocation : 'Chulalongkorn University',
@@ -166,7 +168,7 @@ var Entities = {
             _id : 10,
             trainer : 4,
             name : 'Power Stone Strength',
-            description : '',
+            description : description,
             type : 'type2',
             experience : '1',
             preferredLocation : 'Chulalongkorn University',
