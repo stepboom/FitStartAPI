@@ -289,7 +289,7 @@ var Entities = {
             serviceId: 10,
             day: 'Thursday',
             startTime: '09.00',
-            endTime: '11.00,
+            endTime: '11.00',
         },
     ],
 
