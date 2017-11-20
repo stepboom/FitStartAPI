@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-var { User, Service } = require('./schema')
+var { User, Service, TimeSlot } = require('./schema')
 
 var description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac odio in mauris blandit pretium sit amet eu justo. Curabitur vestibulum, tellus a interdum vehicula, nunc magna vestibulum massa, viverra condimentum nisi elit id nunc. Fusce ultrices dictum accumsan.'
 
@@ -175,6 +175,122 @@ var Entities = {
             province : 'Bangkok',
             price : '1200 - 1500',
         }
+    ],
+    TimeSlot: [
+        {
+            serviceId : 1,
+            day : 'Monday',
+            startTime : '14.00',
+            endTime : '16.00',
+        },
+        {
+            serviceId: 1,
+            day: 'Monday',
+            startTime: '12.00',
+            endTime: '14.00',
+        },
+        {
+            serviceId: 1,
+            day: 'Tuesday',
+            startTime: '14.00',
+            endTime: '16.00',
+        },
+        {
+            serviceId: 1,
+            day: 'Wednesday',
+            startTime: '08.00',
+            endTime: '10.00',
+        },
+        {
+            serviceId: 2,
+            day: 'Monday',
+            startTime: '14.00',
+            endTime: '16.00',
+        },
+        {
+            serviceId: 2,
+            day: 'Tuesday',
+            startTime: '14.00',
+            endTime: '16.00',
+        },
+        {
+            serviceId: 3,
+            day: 'Monday',
+            startTime: '14.00',
+            endTime: '16.00',
+        },
+        {
+            serviceId: 4,
+            day: 'Thursday',
+            startTime: '12.00',
+            endTime: '15.00',
+        },
+        {
+            serviceId: 4,
+            day: 'Friday',
+            startTime: '10.00',
+            endTime: '12.00',
+        },
+        {
+            serviceId: 5,
+            day: 'Monday',
+            startTime: '14.00',
+            endTime: '16.00',
+        },
+        {
+            serviceId: 5,
+            day: 'Tuesday',
+            startTime: '12.00',
+            endTime: '14.00',
+        },
+        {
+            serviceId: 5,
+            day: 'Wednesday',
+            startTime: '13.00',
+            endTime: '15.00',
+        },
+        {
+            serviceId: 6,
+            day: 'Wednesday',
+            startTime: '13.00',
+            endTime: '15.00',
+        },
+        {
+            serviceId: 6,
+            day: 'Friday',
+            startTime: '13.00',
+            endTime: '15.00',
+        },
+        {
+            serviceId: 7,
+            day: 'Friday',
+            startTime: '16.00',
+            endTime: '18.00',
+        },
+        {
+            serviceId: 8,
+            day: 'Wednesday',
+            startTime: '13.00',
+            endTime: '15.00',
+        },
+        {
+            serviceId: 8,
+            day: 'Thursday',
+            startTime: '10.00',
+            endTime: '12.00',
+        },
+        {
+            serviceId: 9,
+            day: 'Tuesday',
+            startTime: '08.00',
+            endTime: '10.00',
+        },
+        {
+            serviceId: 10,
+            day: 'Thursday',
+            startTime: '09.00',
+            endTime: '11.00,
+        },
     ],
 
 }

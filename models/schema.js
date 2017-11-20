@@ -119,6 +119,27 @@ let serviceSchema = new Schema({
 serviceSchema.plugin(autoIncrement.plugin, 'Service')
 
 let Service = mongoose.model('Service', serviceSchema)
+
+let timeSlotSchema = new Schema({
+    serviceId: {
+        type: String,
+        required: 'Please fill service ID'
+    },
+    day: {
+        type: String,
+        required: 'Please fill service day'
+    },
+    startTime: {
+        type: String,
+        required: 'Please fill service start time'
+    },
+    endTime: {
+        type: String,
+        required: 'Please fill service end time'
+    },
+})
+
+let TimeSlot = mongoose.model('TimeSlot', timeSlotSchema)
 // let Trainer = mongoose.model('Trainer', trainerSchema)
 
 // let trainerSchema = new Schema({
@@ -131,7 +152,7 @@ let Service = mongoose.model('Service', serviceSchema)
 //     }
 // })
 
-module.exports = { User: User, Service : Service }
+module.exports = { User: User, Service : Service, TimeSlot : TimeSlot }
 
 // module.exports = { Service: Service }
 // module.exports = { Trainer: Trainer }

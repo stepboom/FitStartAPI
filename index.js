@@ -10,6 +10,7 @@ var passport = require('passport')
 var user = require('./routes/user')
 var service = require('./routes/service')
 var mock = require('./routes/mock')
+var timeSlot = require('./routes/timeSlot')
 
 //Initialize MongoDB Connection
 mongoose.connect('mongodb://localhost/fitstartdb', {
@@ -37,6 +38,7 @@ require('./passport')(passport)
 app.use(user)
 app.use(service)
 app.use(mock)
+app.use(timeSlot)
 
 app.get('/',(req,res)=>{
     res.status(200).json('Welcome to Fit Start API')
