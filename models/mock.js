@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
 var { User, Service } = require('./schema')
 
-var description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac odio in mauris blandit pretium sit amet eu justo. Curabitur vestibulum, tellus a interdum vehicula, nunc magna vestibulum massa, viverra condimentum nisi elit id nunc. Fusce ultrices dictum accumsan. Suspendisse pretium porta diam ac accumsan. Donec mauris orci, volutpat quis iaculis eget, aliquet nec arcu. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam mattis urna magna, sed mattis massa ornare vitae. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam a lorem turpis."
+var description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac odio in mauris blandit pretium sit amet eu justo. Curabitur vestibulum, tellus a interdum vehicula, nunc magna vestibulum massa, viverra condimentum nisi elit id nunc. Fusce ultrices dictum accumsan.'
 
 var Entities = {
 
