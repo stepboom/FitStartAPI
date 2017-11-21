@@ -1,5 +1,5 @@
 var express = require('express')
-var {TimeSlot} = require('../models/schema')
+var {TimeSlot} = require('../models/timeSlot.server.model')
 
 var router = express.Router()
 

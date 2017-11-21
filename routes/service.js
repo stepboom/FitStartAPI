@@ -1,5 +1,5 @@
 var express = require('express')
-var {Service} = require('../models/schema')
+var {Service} = require('../models/service.server.model')
 
 var router = express.Router()
 
