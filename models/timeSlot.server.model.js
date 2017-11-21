@@ -6,10 +6,6 @@ let timeSlotSchema = new Schema({
         type: String,
         required: 'Please fill service ID'
     },
-    day: {
-        type: String,
-        required: 'Please fill service day'
-    },
     startTime: {
         type: Date,
         required: 'Please fill service start time'
@@ -22,4 +18,4 @@ let timeSlotSchema = new Schema({
 
 let TimeSlot = mongoose.model('TimeSlot', timeSlotSchema)
 
-module.exports = {TimeSlot : TimeSlot }
+module.exports = {TimeSlot : TimeSlot}

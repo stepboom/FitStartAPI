@@ -40,4 +40,4 @@ serviceSchema.plugin(autoIncrement.plugin, 'Service')
 
 let Service = mongoose.model('Service', serviceSchema)
 
-module.exports = { TimeSlot : TimeSlot }
+module.exports = { Service  : Service  }
