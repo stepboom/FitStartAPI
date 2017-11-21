@@ -1,10 +1,11 @@
 var express = require('express')
 var {Service} = require('../models/schema')
+var {TimeSlot} = require('../models/schema')
 
 var router = express.Router()
 
 router.post('/service', (req,res)=>{
-	let newService = new Service();
+	let newService = new Service()
 	newService.trainer = req.body.trainer
     newService.name = req.body.name
     newService.description = req.body.description
@@ -16,7 +17,21 @@ router.post('/service', (req,res)=>{
 
     newService.save((err,results)=>{
         if(results){
-			res.json({success : true, service : newService});
+            //res.json({success : true, service : newService})
+            //create timeslot
+            let newTimeSlot = new TimeSlot()
+            newTimeSlot.serviceId = results._id
+            newTimeSlot.day = req.body.day
+            newTimeSlot.startTime = req.body.startTime
+            newTimeSlot.endTime = req.body.endTime
+
+            newTimeSlot.save((err,results)=>{
+                if(results){
+                    res.json({ success: true, service: newTimeSlot})
+                } else {
+                    res.json('Error Saving TimeSlot ' + err)
+                }
+            })
         } else {
             res.json('Error Saving Users ' + err)
         }

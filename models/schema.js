@@ -69,7 +69,7 @@ userSchema.pre('save', function(next) {
 
 userSchema.methods.hashPassword = function(password){
     if (this.salt && password){
-        return crypto.pbkdf2Sync(password,this.salt,10000,64).toString('base64')
+        return crypto.pbkdf2Sync(password,this.salt,10000,64,null).toString('base64')
     } else {
         return password
     }
