@@ -1,6 +1,10 @@
 var express = require('express')
+<<<<<<< HEAD
 var {Service} = require('../models/schema')
 var {TimeSlot} = require('../models/schema')
+=======
+var {Service} = require('../models/service.server.model')
+>>>>>>> 6e52a83775c7b3072cafe2599292448c26b1f4f5
 
 var router = express.Router()
 
