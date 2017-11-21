@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-var { User, Service, TimeSlot } = require('./schema')
+//var { User, Service, TimeSlot } = require('./schema')
 
 var description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac odio in mauris blandit pretium sit amet eu justo. Curabitur vestibulum, tellus a interdum vehicula, nunc magna vestibulum massa, viverra condimentum nisi elit id nunc. Fusce ultrices dictum accumsan.'
 
@@ -300,17 +300,17 @@ module.exports.DB = {
         let count = 0
         let length = Object.keys(mongoose.connection.collections).length
         for (var i in mongoose.connection.collections){
-            //console.log(mongoose.connection.collections[i])
-            mongoose.connection.collections[i].remove((err)=>{
-                ++count
-                if(count === length) {
-                    let promises = []
-                    for(let model in Entities){
-                        promises.push(mongoose.model(model).create(Entities[model]))
+            if(mongoose.connection.collections[i].name != "identitycounters")
+                mongoose.connection.collections[i].remove((err)=>{
+                    ++count
+                    if(count === length) {
+                        let promises = []
+                        for(let model in Entities){
+                            promises.push(mongoose.model(model).create(Entities[model]))
+                        }
+                        Promise.all(promises)
                     }
-                    Promise.all(promises)
-                }
-            })
+                })
         }
     }
 }

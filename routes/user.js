@@ -1,5 +1,5 @@
 var express = require('express')
-var {User} = require('../models/schema')
+var {User} = require('../models/user.server.model')
 var passport = require('passport')
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');

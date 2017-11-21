@@ -1,10 +1,10 @@
 var express = require('express')
-var {TimeSlot} = require('../models/schema')
+var {TimeSlot} = require('../models/timeSlot.server.model')
 
 var router = express.Router()
 
 router.post('/timeSlot', (req,res)=>{
-    let newTimeSlot = new TimeSlot();
+    let newTimeSlot = new TimeSlot()
     newTimeSlot.serviceId = req.body.serviceId
     newTimeSlot.day = req.body.day
     newTimeSlot.startTime = req.body.startTime
