@@ -79,7 +79,10 @@ userSchema.methods.authenticate = function(password) {
 	return this.password === this.hashPassword(password);
 };
 
-userSchema.plugin(autoIncrement.plugin, 'User')
+userSchema.plugin(autoIncrement.plugin, {
+    model : 'User',
+    startAt : 100
+})
 
 let User = mongoose.model('User', userSchema)
 
@@ -117,7 +120,10 @@ let serviceSchema = new Schema({
     
 })
 
-serviceSchema.plugin(autoIncrement.plugin, 'Service')
+serviceSchema.plugin(autoIncrement.plugin,{
+    model : 'Service',
+    startAt : 100
+})
 
 let Service = mongoose.model('Service', serviceSchema)
 
