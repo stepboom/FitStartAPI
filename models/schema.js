@@ -113,7 +113,8 @@ let serviceSchema = new Schema({
     price: {
         type: String,
         required: 'Please fill the price'
-    },
+    }
+    
 })
 
 serviceSchema.plugin(autoIncrement.plugin, 'Service')
@@ -130,11 +131,11 @@ let timeSlotSchema = new Schema({
         required: 'Please fill service day'
     },
     startTime: {
-        type: String,
+        type: Date,
         required: 'Please fill service start time'
     },
     endTime: {
-        type: String,
+        type: Date,
         required: 'Please fill service end time'
     },
 })

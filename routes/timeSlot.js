@@ -20,8 +20,8 @@ router.post('/timeSlot', (req,res)=>{
     })
 })
 
-router.get('/timeSlot',(req,res)=>{
-    TimeSlot.find({}).exec((err,results) => {
+router.get('/timeSlot/byservice',(req,res)=>{
+    TimeSlot.find({serviceId:req.serviceId}).exec((err,results) => {
         if(results)
             res.json({timeSlot : results})
         else
@@ -29,7 +29,7 @@ router.get('/timeSlot',(req,res)=>{
     })
 })
 
-router.post('/timeSlot/search',(req,res)=>{
+router.post('/timeSlot/bytime',(req,res)=>{
 	let keyword = req.body.keyword
 
 	let query = {}
