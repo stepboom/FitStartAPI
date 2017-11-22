@@ -6,7 +6,6 @@ var router = express.Router()
 router.post('/timeSlots', (req,res)=>{
     let newTimeSlot = new TimeSlot()
     newTimeSlot.serviceId = req.body.serviceId
-    newTimeSlot.day = req.body.day
     newTimeSlot.startTime = req.body.startTime
     newTimeSlot.endTime = req.body.endTime
    
@@ -23,7 +22,7 @@ router.post('/timeSlots', (req,res)=>{
 router.get('/timeSlots/service/:serviceId',(req,res)=>{
     TimeSlot.find({serviceId : req.params.serviceId}).exec((err,results) => {
         if(results)
-            res.json({success : true, timeSlot : results})
+            res.json({success : true, timeSlots : results})
         else
             res.json('No TimeSlots')
     })

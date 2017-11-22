@@ -1,6 +1,7 @@
 var express = require('express')
 var {Service} = require('../models/service.server.model')
 var {TimeSlot} = require('../models/timeSlot.server.model')
+var moment = require('moment')
 
 var router = express.Router()
 
@@ -17,34 +18,20 @@ router.post('/service', (req,res)=>{
 
     newService.save((err,results)=>{
         if(results){
-            //res.json({success : true, service : newService})
-            let newTimeSlot = new TimeSlot()
-            newTimeSlot.serviceId = results._id
-            newTimeSlot.day = req.body.day
-            newTimeSlot.startTime = req.body.startTime
-            newTimeSlot.endTime = req.body.endTime
-
-            newTimeSlot.save((err,results)=>{
-                if(results){
-                    //res.json({ success: true, service: newTimeSlot})
-                    let newTimeSlot = new TimeSlot()
-                    newTimeSlot.serviceId = results._id
-                    newTimeSlot.startTime = req.body.startTime
-                    newTimeSlot.endTime = req.body.endTime
-                   
-                    newTimeSlot.save((err,results)=>{
-                        if(results){
-                            res.json({ success: true, service: newService});
-                        } else {
-                            res.json('Error Saving TimeSlot ' + err)
-                        }
-                    })
-                } else {
-                    res.json('Error Saving TimeSlot ' + err)
-                }
+            req.body.timeSlots.map((timeSlot)=>{
+                timeSlot.serviceId = results._id;
+                return timeSlot
             })
+        
+            TimeSlot.insertMany(req.body.timeSlots, (err, docs) => {
+                if(err){
+                    res.json('Error Saving TimeSlot :' + err)
+                } else {
+                    res.json({ success: true, service: newService});
+                }
+              })
         } else {
-            res.json('Error Saving Users ' + err)
+            res.json('Error Saving Service :' + err)
         }
     })
 })

@@ -7,11 +7,11 @@ let timeSlotSchema = new Schema({
         required: 'Please fill service ID'
     },
     startTime: {
-        type: String,
+        type: Date,
         required: 'Please fill service start time'
     },
     endTime: {
-        type: String,
+        type: Date,
         required: 'Please fill service end time'
     },
 })
