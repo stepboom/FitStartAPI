@@ -20,7 +20,7 @@ router.post('/timeSlots', (req,res)=>{
 })
 
 router.get('/timeSlots/service/:serviceId',(req,res)=>{
-    TimeSlot.find({serviceId : req.params.serviceId}).exec((err,results) => {
+    TimeSlot.find({serviceId : req.params.serviceId}).sort({startTime : 1}).exec((err,results) => {
         if(results)
             res.json({success : true, timeSlots : results})
         else
