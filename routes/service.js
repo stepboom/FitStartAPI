@@ -6,7 +6,7 @@ var router = express.Router()
 
 router.post('/service', (req,res)=>{
 	let newService = new Service()
-	newService.trainer = req.body.trainer
+	newService.trainerId = req.body.trainerId
     newService.name = req.body.name
     newService.description = req.body.description
     newService.type = req.body.type
@@ -86,8 +86,8 @@ router.post('/services/search',(req,res)=>{
     })
 })
 
-router.get('/services/trainer/:trainer',(req,res)=>{
-	Service.find({trainer : req.params.trainer}).exec((err,results)=>{
+router.get('/services/trainer/:trainerId',(req,res)=>{
+	Service.find({trainerId : req.params.trainerId}).exec((err,results)=>{
         if(results)
             res.json({success : true, services : results})
         else

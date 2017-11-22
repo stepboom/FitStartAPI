@@ -3,9 +3,9 @@ var Schema = mongoose.Schema
 var autoIncrement = require('mongoose-auto-increment')
 var TimeSlot = require('./timeSlot.server.model')
 let serviceSchema = new Schema({
-    trainer : {
+    trainerId : {
         type: String,
-        required : 'Please fill service trainer'
+        required : 'Please fill service trainer id'
     },
     name : {
         type : String,

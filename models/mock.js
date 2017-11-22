@@ -61,7 +61,7 @@ var Entities = {
     Service : [
         {
             _id : 1,
-            trainer : 1,
+            trainerId : 1,
             name : 'Superman Muscle',
             description : description,
             type : 'type1',
@@ -72,7 +72,7 @@ var Entities = {
         },
         {
             _id : 2,
-            trainer : 1,
+            trainerId : 1,
             name : 'Unlimited Strength',
             description : description,
             type : 'type2',
@@ -83,7 +83,7 @@ var Entities = {
         },
         {
             _id : 3,
-            trainer : 1,
+            trainerId : 1,
             name : 'Superficial Strength',
             description : description,
             type : 'type3',
@@ -95,7 +95,7 @@ var Entities = {
         {
 
             _id : 4,
-            trainer : 1,
+            trainerId : 1,
             name : 'Captain America Strength',
             description : description,
             type : 'type1',
@@ -106,7 +106,7 @@ var Entities = {
         },
         {
             _id : 5,
-            trainer : 3,
+            trainerId : 3,
             name : 'Hawkeye Accuracy Muscle',
             description : description,
             type : 'type2',
@@ -118,7 +118,7 @@ var Entities = {
         {
 
             _id : 6,
-            trainer : 3,
+            trainerId : 3,
             name : 'Hulk Muscle',
             description : description,
             type : 'type1',
@@ -130,7 +130,7 @@ var Entities = {
         {
 
             _id : 7,
-            trainer : 4,
+            trainerId : 4,
             name : 'Thor Chest',
             description : description,
             type : 'type2',
@@ -142,7 +142,7 @@ var Entities = {
         {
 
             _id : 8,
-            trainer : 4,
+            trainerId : 4,
             name : 'The Iron Fist',
             description : description,
             type : 'type3',
@@ -154,7 +154,7 @@ var Entities = {
         {
 
             _id : 9,
-            trainer : 4,
+            trainerId : 4,
             name : 'Six Ultimate Pack',
             description : description,
             type : 'type1',
@@ -166,7 +166,7 @@ var Entities = {
         {
 
             _id : 10,
-            trainer : 4,
+            trainerId : 4,
             name : 'Power Stone Strength',
             description : description,
             type : 'type2',
@@ -298,7 +298,7 @@ var Entities = {
 module.exports.DB = {
     mockAll : function(){     
         let count = 0
-        let length = Object.keys(mongoose.connection.collections).length
+        let length = Object.keys(mongoose.connection.collections).length - 1
         for (var i in mongoose.connection.collections){
             if(mongoose.connection.collections[i].name != "identitycounters")
                 mongoose.connection.collections[i].remove((err)=>{

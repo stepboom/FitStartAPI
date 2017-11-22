@@ -3,7 +3,7 @@ var {TimeSlot} = require('../models/timeSlot.server.model')
 
 var router = express.Router()
 
-router.post('/timeSlot', (req,res)=>{
+router.post('/timeSlots', (req,res)=>{
     let newTimeSlot = new TimeSlot()
     newTimeSlot.serviceId = req.body.serviceId
     newTimeSlot.day = req.body.day
@@ -20,16 +20,16 @@ router.post('/timeSlot', (req,res)=>{
     })
 })
 
-router.get('/timeSlot/byservice',(req,res)=>{
-    TimeSlot.find({serviceId:req.serviceId}).exec((err,results) => {
+router.get('/timeSlots/service/:serviceId',(req,res)=>{
+    TimeSlot.find({serviceId : req.params.serviceId}).exec((err,results) => {
         if(results)
-            res.json({timeSlot : results})
+            res.json({success : true, timeSlot : results})
         else
             res.json('No TimeSlots')
     })
 })
 
-router.post('/timeSlot/bytime',(req,res)=>{
+router.post('/timeSlots/search',(req,res)=>{
 	let keyword = req.body.keyword
 
 	let query = {}
