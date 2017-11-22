@@ -28,11 +28,11 @@ let userSchema = new Schema({
         required: 'Please fill in a Email'
 
     },
-    first_name : {
+    firstName : {
         type : String,
         required: 'Please fill in a Firstname'
     },
-    last_name : {
+    lastName : {
         type : String
     },
     gender : {
@@ -41,7 +41,7 @@ let userSchema = new Schema({
     address : {
         type : String
     },
-    telephone_number : {
+    telephoneNumber : {
         type : String
     },
     role :{

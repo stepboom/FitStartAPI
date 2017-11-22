@@ -45,6 +45,15 @@ router.get('/services',(req,res)=>{
     })
 })
 
+router.get('/services/:id',(req,res)=>{
+	Service.findOne({_id : req.params.id}).exec((err,result)=>{
+        if(result)
+            res.json({success : true, service : result})
+        else
+            res.json({success : false})
+    })
+})
+
 router.post('/services/search',(req,res)=>{
 	let keyword = req.body.keyword
 
@@ -77,15 +86,6 @@ router.get('/services/trainer/:trainerId',(req,res)=>{
 	Service.find({trainerId : req.params.trainerId}).exec((err,results)=>{
         if(results)
             res.json({success : true, services : results})
-        else
-            res.json({success : false})
-    })
-})
-
-router.get('/services/:id',(req,res)=>{
-	Service.findOne({_id : req.params.id}).exec((err,result)=>{
-        if(result)
-            res.json({success : true, service : result})
         else
             res.json({success : false})
     })

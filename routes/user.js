@@ -16,18 +16,62 @@ router.get('/users',(req,res)=>{
     })
 })
 
-router.get('/users/search',(req,res)=>{
-    let id = req.query.id
-    User.find({_id : id}).exec((err,result)=>{
+router.get('/users/:id',(req,res)=>{
+	User.findOne({_id : req.params.id}).exec((err,result)=>{
+		if(result){
+			res.json({user : result})
+		} else {
+			res.json('No Users')
+		}
+	})
+})
+
+router.get('/users/username/:username',(req,res)=>{
+	User.findOne({username : req.params.username}).exec((err,result)=>{
+		if(result){
+			res.json({user : result})
+		} else {
+			res.json('No Users')
+		}
+	})
+})
+
+router.post('/users/search',(req,res)=>{
+    let name = req.body.name
+	
+	let query = {}
+
+	query['$or'] = [
+		{
+			username: {
+				$regex: name,
+				$options: 'i'
+			}
+		},
+		{
+			firstName: {
+				$regex: name,
+				$options: 'i'
+			}
+		},
+		{
+			lastName: {
+				$regex: name,
+				$options: 'i'
+			}
+		}
+	]
+
+    User.find(query).exec((err,results)=>{
         if(result)
-            res.json({user : result})
+            res.json({users : results})
         else
             res.json('No Users')
     })
 })
 
-router.get('/trainers/search',(req,res)=>{
-	let name = req.query.name
+router.post('/trainers/search',(req,res)=>{
+	let name = req.body.name
 
 	let query = {}
 
@@ -39,13 +83,13 @@ router.get('/trainers/search',(req,res)=>{
 			}
 		},
 		{
-			first_name: {
+			firstName: {
 				$regex: name,
 				$options: 'i'
 			}
 		},
 		{
-			last_name: {
+			lastName: {
 				$regex: name,
 				$options: 'i'
 			}
@@ -62,7 +106,7 @@ router.get('/trainers/search',(req,res)=>{
     })
 })
 
-router.get('/users/:email',(req,res)=>{
+router.get('/users/hasEmail/:email',(req,res)=>{
 	let email = req.params.email
 	User.findOne({email : email},(err,results)=>{
 		if(results){
