@@ -36,7 +36,7 @@ let userSchema = new Schema({
         type : String
     },
     gender : {
-        type : String
+        type : Number
     },
     address : {
         type : String
