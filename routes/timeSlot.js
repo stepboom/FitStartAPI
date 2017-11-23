@@ -4,19 +4,20 @@ var {TimeSlot} = require('../models/timeSlot.server.model')
 var router = express.Router()
 
 router.post('/timeSlots', (req,res)=>{
-    let newTimeSlot = new TimeSlot()
-    newTimeSlot.serviceId = req.body.serviceId
-    newTimeSlot.startTime = req.body.startTime
-    newTimeSlot.endTime = req.body.endTime
-   
 
-    newTimeSlot.save((err,results)=>{
-        if(results){
-            res.json({ success: true, service: newTimeSlot});
-        } else {
-            res.json('Error Saving TimeSlot ' + err)
-        }
+    req.body.timeSlots.map((timeSlot)=>{
+        timeSlot.serviceId = req.body.serviceId;
+        return timeSlot
     })
+
+    TimeSlot.insertMany(req.body.timeSlots, (err, results) => {
+        if(err){
+            res.json('Error Saving TimeSlot :' + err)
+        } else {
+            res.json({ success: true, timeSlots: results});
+        }
+      })
+   
 })
 
 router.get('/timeSlots/service/:serviceId',(req,res)=>{

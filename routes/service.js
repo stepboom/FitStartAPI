@@ -23,7 +23,7 @@ router.post('/service', (req,res)=>{
                 return timeSlot
             })
         
-            TimeSlot.insertMany(req.body.timeSlots, (err, docs) => {
+            TimeSlot.insertMany(req.body.timeSlots, (err, timeSlots) => {
                 if(err){
                     res.json('Error Saving TimeSlot :' + err)
                 } else {
