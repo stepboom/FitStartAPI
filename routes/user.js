@@ -202,11 +202,11 @@ router.post('/signup', (req,res)=>{
     newUser.username = req.body.username
     newUser.password = req.body.password
     newUser.email = req.body.email
-    newUser.first_name = req.body.first_name
-    newUser.last_name = req.body.last_name
+    newUser.firstName = req.body.firstName
+    newUser.lastName = req.body.lastName
     newUser.gender = req.body.gender
     newUser.address = req.body.address
-    newUser.telephone_number = req.body.telephone_number
+    newUser.telephoneNumber = req.body.telephoneNumber
     newUser.role = req.body.role
 
     newUser.save((err,results)=>{
