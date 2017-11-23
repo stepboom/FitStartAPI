@@ -67,7 +67,7 @@ var Entities = {
             type : 'Freelance',
             experience : 'น้อยกว่า 1',
             preferredLocation : 'Siam Paragon',
-            province : 'Bangkok',
+            province : 'กรุงเทพมหานคร',
             price : '750 - 1000',
         },
         {
@@ -78,7 +78,7 @@ var Entities = {
             type : 'ประจำฟิตเนส',
             experience : '2 - 5',
             preferredLocation : 'Bangkapi',
-            province : 'Bangkok',
+            province : 'กรุงเทพมหานคร',
             price : '500 - 700',
         },
         {
@@ -89,7 +89,7 @@ var Entities = {
             type : 'Freelance',
             experience : '1',
             preferredLocation : 'Pra Pradang',
-            province : 'Bangkok',
+            province : 'กรุงเทพมหานคร',
             price : '200 - 400',
         },
         {
@@ -101,7 +101,7 @@ var Entities = {
             type : 'Freelance',
             experience : '1',
             preferredLocation : 'Timeless',
-            province : 'Bangkok',
+            province : 'กรุงเทพมหานคร',
             price : '500 - 700',
         },
         {
@@ -112,7 +112,7 @@ var Entities = {
             type : 'ประจำฟิตเนส',
             experience : '2 - 5',
             preferredLocation : 'Samrong',
-            province : 'Samutprakarn',
+            province : 'สมุทรปราการ',
             price : '300 - 500',
         },
         {
@@ -124,7 +124,7 @@ var Entities = {
             type : 'ประจำฟิตเนส',
             experience : '2 - 5',
             preferredLocation : 'Pra Pradang',
-            province : 'Samutprakarn',
+            province : 'สมุทรปราการ',
             price : '1500 - 1700',
         },
         {
@@ -136,7 +136,7 @@ var Entities = {
             type : 'Freelance',
             experience : '1',
             preferredLocation : 'Central World',
-            province : 'Bangkok',
+            province : 'กรุงเทพมหานคร',
             price : '2200 - 2500',
         },
         {
@@ -148,7 +148,7 @@ var Entities = {
             type : 'ประจำฟิตเนส',
             experience : '1 - 5',
             preferredLocation : 'Central World',
-            province : 'Bangkok',
+            province : 'กรุงเทพมหานคร',
             price : '3500 - 3700',
         },
         {
@@ -160,7 +160,7 @@ var Entities = {
             type : 'ประจำฟิตเนส',
             experience : 'มากกว่า 10',
             preferredLocation : 'Chulalongkorn University',
-            province : 'Bangkok',
+            province : 'กรุงเทพมหานคร',
             price : '1500 - 1700',
         },
         {
@@ -172,7 +172,7 @@ var Entities = {
             type : 'Freelance',
             experience : '5 - 10',
             preferredLocation : 'Chulalongkorn University',
-            province : 'Bangkok',
+            province : 'กรุงเทพมหานคร',
             price : '1200 - 1500',
         }
     ],
