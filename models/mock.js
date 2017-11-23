@@ -293,6 +293,39 @@ var Entities = {
             status : 0,
         },
     ],
+    Review: [
+        {
+            _Id : 1,
+            trainerId : 1,
+            comment : 'not bad',
+            rating : 3,
+        },
+        {
+            _Id: 2,
+            trainerId: 1,
+            comment: 'good',
+            rating: 4,
+        },
+        {
+            _Id: 3,
+            trainerId: 3,
+            comment: 'bad',
+            rating: 1,
+        },
+        {
+            _Id: 4,
+            trainerId: 4,
+            comment: 'perfect',
+            rating: 5,
+        },
+        {
+            _Id: 5,
+            trainerId: 4,
+            comment: 'awesome',
+            rating: 4,
+        },
+
+    ],
 
 }
 
