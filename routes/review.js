@@ -5,46 +5,43 @@ var router = express.Router()
 
 router.post('/review', (req,res)=>{
 	let newReview = new Review()
-	newService.trainerId = req.body.trainerId
-    newService.name = req.body.name
-    newService.description = req.body.description
-    newService.type = req.body.type
-    newService.experience = req.body.experience
-    newService.preferredLocation = req.body.preferredLocation
-    newService.province = req.body.province
-    newService.price = req.body.price
+    newReview.reviewId = req.body.reviewId
+    newReview.trainerId = req.body.trainerId
+    newReview.comment = req.body.comment
+    newReview.rating = req.body.rating
+    
 
-    newService.save((err,results)=>{
-        if(results){
-            req.body.timeSlots.map((timeSlot)=>{
-                timeSlot.serviceId = results._id;
-                return timeSlot
+    newReview.save((err,results)=>{
+        if (results) {
+            req.body.reviewId.map((reviewId) => {
+                review.reviewd = review._id;
+                return review
             })
         
-            TimeSlot.insertMany(req.body.timeSlots, (err, timeSlots) => {
+            review.insertMany(req.body.reviewId, (err, reviewId) => {
                 if(err){
-                    res.json('Error Saving TimeSlot :' + err)
+                    res.json('Error Saving review :' + err)
                 } else {
-                    res.json({ success: true, service: newService});
+                    res.json({ success: true, review: newReview});
                 }
               })
         } else {
-            res.json('Error Saving Service :' + err)
+            res.json('Error Saving Review :' + err)
         }
     })
 })
 
-router.get('/services',(req,res)=>{
-    Service.find({}).exec((err,results) => {
+router.get('/reviews',(req,res)=>{
+    Review.find({}).exec((err,results) => {
         if(results)
-            res.json({services : results})
+            res.json({reviews : results})
         else
             res.json('No Users')
     })
 })
 
-router.get('/services/:id',(req,res)=>{
-	Service.findOne({_id : req.params.id}).exec((err,result)=>{
+router.get('/reviews/:id',(req,res)=>{
+	review.findOne({_id : req.params.id}).exec((err,result)=>{
         if(result)
             res.json({success : true, service : result})
         else
@@ -52,7 +49,7 @@ router.get('/services/:id',(req,res)=>{
     })
 })
 
-router.post('/services/search',(req,res)=>{
+router.post('/reviews/search',(req,res)=>{
 	let keyword = req.body.keyword
 
 	let query = {}
@@ -72,7 +69,7 @@ router.post('/services/search',(req,res)=>{
 		}
 	]
 
-    Service.find(query).exec((err,results)=>{
+    Review.find(query).exec((err,results)=>{
         if(results)
             res.json({success : true, services : results})
         else
@@ -80,10 +77,10 @@ router.post('/services/search',(req,res)=>{
     })
 })
 
-router.get('/services/trainer/:trainerId',(req,res)=>{
-	Service.find({trainerId : req.params.trainerId}).exec((err,results)=>{
+router.get('/reviews/trainer/:trainerId',(req,res)=>{
+	Review.find({trainerId : req.params.trainerId}).exec((err,results)=>{
         if(results)
-            res.json({success : true, services : results})
+            res.json({success : true, reviews : results})
         else
             res.json({success : false})
     })
