@@ -14,6 +14,9 @@ let timeSlotSchema = new Schema({
         type: Date,
         required: 'Please fill service end time'
     },
+    status : {
+        type: Number,
+    },
 })
 
 let TimeSlot = mongoose.model('TimeSlot', timeSlotSchema)
