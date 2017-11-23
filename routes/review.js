@@ -5,28 +5,16 @@ var router = express.Router()
 
 router.post('/review', (req,res)=>{
 	let newReview = new Review()
-    newReview.reviewId = req.body.reviewId
     newReview.trainerId = req.body.trainerId
     newReview.comment = req.body.comment
     newReview.rating = req.body.rating
     
 
-    newReview.save((err,results)=>{
-        if (results) {
-            req.body.reviewId.map((reviewId) => {
-                review.reviewd = review._id;
-                return review
-            })
-        
-            review.insertMany(req.body.reviewId, (err, reviewId) => {
-                if(err){
-                    res.json('Error Saving review :' + err)
-                } else {
-                    res.json({ success: true, review: newReview});
-                }
-              })
+    newReview.save((err,result)=>{
+        if (result) {
+            res.json({ success: true, review: newReview });
         } else {
-            res.json('Error Saving Review :' + err)
+            res.json('Error Saving Review ' + err)
         }
     })
 })
@@ -36,14 +24,14 @@ router.get('/reviews',(req,res)=>{
         if(results)
             res.json({reviews : results})
         else
-            res.json('No Users')
+            res.json('No Reviews')
     })
 })
 
 router.get('/reviews/:id',(req,res)=>{
 	review.findOne({_id : req.params.id}).exec((err,result)=>{
         if(result)
-            res.json({success : true, service : result})
+            res.json({success : true, review : result})
         else
             res.json({success : false})
     })
