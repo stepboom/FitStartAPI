@@ -16,15 +16,43 @@ router.get('/users',(req,res)=>{
     })
 })
 
-router.get('/users/:id',(req,res)=>{
-	User.findOne({_id : req.params.id}).exec((err,result)=>{
-		if(result){
-			res.json({user : result})
-		} else {
-			res.json('No Users')
-		}
+router.route('/users/:id')
+	.get((req,res)=>{
+		User.findOne({_id : req.params.id}).exec((err,result)=>{
+			if(result){
+				res.json({user : result})
+			} else {
+				res.json('No Users')
+			}
+		})
 	})
-})
+	.patch((req,res)=>{
+		User.findById(req.params.id,(err,result)=>{
+			if(result){
+				for (var attrname in req.body) { 
+					result[attrname] = req.body[attrname] 
+				}
+				result.save((err,result)=>{
+					if(result){
+						res.json({user : result})
+					} else {
+						res.json('Error Saving User : ' + err)
+					}
+				})
+			} else {
+				res.json('No Users')
+			}
+		})
+	})
+	.delete((req,res)=>{
+		User.findByIdAndRemove(req.params.id,(err,result)=>{
+			if(result){
+				res.json({success :true})
+			} else {
+				res.json('Error Deleting User ' + err)
+			}
+		})
+	})
 
 router.get('/users/username/:username',(req,res)=>{
 	User.findOne({username : req.params.username}).exec((err,result)=>{
