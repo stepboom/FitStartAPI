@@ -39,8 +39,8 @@ router.get('/timeSlots/service/:serviceId',(req,res)=>{
     })
 })
 
-router.post('/timeSlots/search',(req,res)=>{
-	let keyword = req.body.keyword
+router.get('/timeSlots/search/items',(req,res)=>{
+	let keyword = req.query.keyword
 
 	let query = {}
 

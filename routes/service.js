@@ -54,8 +54,8 @@ router.get('/services/:id',(req,res)=>{
     })
 })
 
-router.post('/services/search',(req,res)=>{
-	let keyword = req.body.keyword
+router.get('/services/search/items',(req,res)=>{
+    let keyword = req.query.keyword
 
 	let query = {}
 

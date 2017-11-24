@@ -64,8 +64,9 @@ router.get('/users/username/:username',(req,res)=>{
 	})
 })
 
-router.post('/users/search',(req,res)=>{
-    let name = req.body.name
+router.get('/users/search/items',(req,res)=>{
+	let name = req.query.name
+
 	
 	let query = {}
 
@@ -91,15 +92,15 @@ router.post('/users/search',(req,res)=>{
 	]
 
     User.find(query).exec((err,results)=>{
-        if(result)
+        if(results)
             res.json({users : results})
         else
             res.json('No Users')
     })
 })
 
-router.post('/trainers/search',(req,res)=>{
-	let name = req.body.name
+router.get('/trainers/search/items',(req,res)=>{
+	let name = req.query.name
 
 	let query = {}
 

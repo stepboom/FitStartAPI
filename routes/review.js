@@ -37,8 +37,8 @@ router.get('/reviews/:id',(req,res)=>{
     })
 })
 
-router.post('/reviews/search',(req,res)=>{
-    let keyword = req.body.keyword
+router.get('/reviews/search/items',(req,res)=>{
+    let keyword = req.query.keyword
 
     let query = {}
 
