@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-//var { User, Service, TimeSlot } = require('./schema')
+//var { User, Service, TimeSlot , Review } = require('./schema')
 
 var description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac odio in mauris blandit pretium sit amet eu justo. Curabitur vestibulum, tellus a interdum vehicula, nunc magna vestibulum massa, viverra condimentum nisi elit id nunc. Fusce ultrices dictum accumsan.'
 
@@ -311,6 +311,39 @@ var Entities = {
             endTime : '2017-05-19T10:00:00+07:00',
             status : 0,
         },
+    ],
+    Review: [
+        {
+            _Id : 1,
+            trainerId : 1,
+            comment : 'not bad',
+            rating : 3,
+        },
+        {
+            _Id: 2,
+            trainerId: 1,
+            comment: 'good',
+            rating: 4,
+        },
+        {
+            _Id: 3,
+            trainerId: 3,
+            comment: 'bad',
+            rating: 1,
+        },
+        {
+            _Id: 4,
+            trainerId: 4,
+            comment: 'perfect',
+            rating: 5,
+        },
+        {
+            _Id: 5,
+            trainerId: 4,
+            comment: 'awesome',
+            rating: 4,
+        },
+
     ],
 
 }

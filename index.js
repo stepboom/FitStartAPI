@@ -11,6 +11,7 @@ var user = require('./routes/user')
 var service = require('./routes/service')
 var mock = require('./routes/mock')
 var timeSlot = require('./routes/timeSlot')
+var review = require('./routes/review')
 
 //Initialize MongoDB Connection
 mongoose.connect('mongodb://localhost/fitstartdb', {
@@ -39,6 +40,7 @@ app.use(user)
 app.use(service)
 app.use(mock)
 app.use(timeSlot)
+app.use(review)
 
 app.get('/',(req,res)=>{
     res.status(200).json('Welcome to Fit Start API')
