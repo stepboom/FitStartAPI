@@ -2,6 +2,7 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 var autoIncrement = require('mongoose-auto-increment')
 var TimeSlot = require('./timeSlot.server.model')
+
 let serviceSchema = new Schema({
     trainerId : {
         type: String,

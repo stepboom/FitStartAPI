@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 var autoIncrement = require('mongoose-auto-increment')
+
 let timeSlotSchema = new Schema({
     serviceId: {
         type: String,
@@ -17,6 +18,11 @@ let timeSlotSchema = new Schema({
     status : {
         type: Number,
     },
+})
+
+timeSlotSchema.plugin(autoIncrement.plugin,{
+    model : 'TimeSlot',
+    startAt : 100
 })
 
 let TimeSlot = mongoose.model('TimeSlot', timeSlotSchema)
