@@ -45,13 +45,6 @@ router.get('/services',(req,res)=>{
     })
 })
 
-/*router.get('/services/:id',(req,res)=>{
-	Service.findOne({_id : req.params.id}).exec((err,result)=>{
-        if(result)
-            res.json({success : true, service : result})
-        else
-            res.json({success : false})
-    })*/
 router.route('/services/:id')
     .get((req, res) => {
         Service.findOne({ _id: req.params.id }).exec((err, result) => {
@@ -62,32 +55,32 @@ router.route('/services/:id')
             }
         })
     })
-        .patch((req, res) => {
-            Service.findById(req.params.id, (err, result) => {
-                if (result) {
-                    for (var attrname in req.body) {
-                        result[attrname] = req.body[attrname]
+    .patch((req, res) => {
+        Service.findById(req.params.id, (err, result) => {
+            if (result) {
+                for (var attrname in req.body) {
+                    result[attrname] = req.body[attrname]
+                }
+                result.save((err, result) => {
+                    if (result) {
+                        res.json({ service: result })
+                    } else {
+                        res.json('Error Saving Service : ' + err)
                     }
-                    result.save((err, result) => {
-                        if (result) {
-                            res.json({ service: result })
-                        } else {
-                            res.json('Error Saving Service : ' + err)
-                        }
-                    })
-                } else {
-                    res.json('No Services')
-                }
-            })
+                })
+            } else {
+                res.json('No Services')
+            }
         })
-        .delete((req, res) => {
-            Service.findByIdAndRemove(req.params.id, (err, result) => {
-                if (result) {
-                    res.json({ success: true })
-                } else {
-                    res.json('Error Deleting Service ' + err)
-                }
-            })
+    })
+    .delete((req, res) => {
+        Service.findByIdAndRemove(req.params.id, (err, result) => {
+            if (result) {
+                res.json({ success: true })
+            } else {
+                res.json('Error Deleting Service ' + err)
+            }
+        })
 })
 
 router.get('/services/search/items',(req,res)=>{

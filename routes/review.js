@@ -28,13 +28,6 @@ router.get('/reviews',(req,res)=>{
     })
 })
 
-/*router.get('/reviews/:id',(req,res)=>{
-	Review.findOne({_id : req.params.id}).exec((err,result)=>{
-        if(result)
-            res.json({success : true, review : result})
-        else
-            res.json({success : false})
-    })*/
 router.route('/reviews/:id')
     .get((req, res) => {
         Review.findOne({ _id: req.params.id }).exec((err, result) => {
@@ -45,32 +38,32 @@ router.route('/reviews/:id')
             }
         })
     })
-        .patch((req, res) => {
-            Review.findById(req.params.id, (err, result) => {
-                if (result) {
-                    for (var attrname in req.body) {
-                        result[attrname] = req.body[attrname]
+    .patch((req, res) => {
+        Review.findById(req.params.id, (err, result) => {
+            if (result) {
+                for (var attrname in req.body) {
+                    result[attrname] = req.body[attrname]
+                }
+                result.save((err, result) => {
+                    if (result) {
+                        res.json({ review: result })
+                    } else {
+                        res.json('Error Saving Review : ' + err)
                     }
-                    result.save((err, result) => {
-                        if (result) {
-                            res.json({ review: result })
-                        } else {
-                            res.json('Error Saving Review : ' + err)
-                        }
-                    })
-                } else {
-                    res.json('No Reviews')
-                }
-            })
+                })
+            } else {
+                res.json('No Reviews')
+            }
         })
-        .delete((req, res) => {
-            Review.findByIdAndRemove(req.params.id, (err, result) => {
-                if (result) {
-                    res.json({ success: true })
-                } else {
-                    res.json('Error Deleting Review ' + err)
-                }
-            })
+    })
+    .delete((req, res) => {
+        Review.findByIdAndRemove(req.params.id, (err, result) => {
+            if (result) {
+                res.json({ success: true })
+            } else {
+                res.json('Error Deleting Review ' + err)
+            }
+        })
 })
 
 router.get('/reviews/search/items',(req,res)=>{
