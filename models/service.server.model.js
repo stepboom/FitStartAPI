@@ -5,7 +5,7 @@ var TimeSlot = require('./timeSlot.server.model')
 
 let serviceSchema = new Schema({
     trainerId : {
-        type: String,
+        type: Number,
         required : 'Please fill service trainer id'
     },
     name : {
