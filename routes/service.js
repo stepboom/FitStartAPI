@@ -45,13 +45,14 @@ router.get('/services',(req,res)=>{
     })
 })
 
-router.get('/services/:id',(req,res)=>{
-	/*Service.findOne({_id : req.params.id}).exec((err,result)=>{
+/*router.get('/services/:id',(req,res)=>{
+	Service.findOne({_id : req.params.id}).exec((err,result)=>{
         if(result)
             res.json({success : true, service : result})
         else
             res.json({success : false})
     })*/
+router.route('/services/:id')
     .get((req, res) => {
         Service.findOne({ _id: req.params.id }).exec((err, result) => {
             if (result) {

@@ -28,13 +28,14 @@ router.get('/reviews',(req,res)=>{
     })
 })
 
-router.get('/reviews/:id',(req,res)=>{
-	/*Review.findOne({_id : req.params.id}).exec((err,result)=>{
+/*router.get('/reviews/:id',(req,res)=>{
+	Review.findOne({_id : req.params.id}).exec((err,result)=>{
         if(result)
             res.json({success : true, review : result})
         else
             res.json({success : false})
     })*/
+router.route('/reviews/:id')
     .get((req, res) => {
         Review.findOne({ _id: req.params.id }).exec((err, result) => {
             if (result) {
