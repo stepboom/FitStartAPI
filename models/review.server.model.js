@@ -5,7 +5,7 @@ var autoIncrement = require('mongoose-auto-increment')
 autoIncrement.initialize(mongoose.connection);
 
 let reviewSchema = new Schema({
-    trainerid: {
+    trainerId: {
         type: Number,
         required: 'Please fill trainer ID'
     },
@@ -21,7 +21,7 @@ let reviewSchema = new Schema({
 
 reviewSchema.plugin(autoIncrement.plugin, {
     model: 'Review',
-    startAt: 1
+    startAt: 100
 })
 
 let Review = mongoose.model('Review', reviewSchema)

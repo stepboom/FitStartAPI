@@ -3,7 +3,7 @@ var {Review} = require('../models/review.server.model')
 
 var router = express.Router()
 
-router.post('/review', (req,res)=>{
+router.post('/review', (req, res) => {
 	let newReview = new Review()
     newReview.trainerId = req.body.trainerId
     newReview.comment = req.body.comment
@@ -29,7 +29,7 @@ router.get('/reviews',(req,res)=>{
 })
 
 router.get('/reviews/:id',(req,res)=>{
-	review.findOne({_id : req.params.id}).exec((err,result)=>{
+	Review.findOne({_id : req.params.id}).exec((err,result)=>{
         if(result)
             res.json({success : true, review : result})
         else
@@ -38,23 +38,17 @@ router.get('/reviews/:id',(req,res)=>{
 })
 
 router.post('/reviews/search',(req,res)=>{
-	let keyword = req.body.keyword
+    let keyword = req.body.keyword
 
-	let query = {}
+    let query = {}
 
 	query['$or'] = [
 		{
-			name: {
+			comment: {
 				$regex: keyword,
 				$options: 'i'
 			}
 		},
-		{
-			description: {
-				$regex: keyword,
-				$options: 'i'
-			}
-		}
 	]
 
     Review.find(query).exec((err,results)=>{
