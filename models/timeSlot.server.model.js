@@ -4,7 +4,7 @@ var autoIncrement = require('mongoose-auto-increment')
 
 let timeSlotSchema = new Schema({
     serviceId: {
-        type: String,
+        type: Number,
         required: 'Please fill service ID'
     },
     startTime: {
