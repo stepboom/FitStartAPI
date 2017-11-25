@@ -20,7 +20,6 @@ router.get('/users',(req,res)=>{
 
 router.route('/users/:id')
 	.get((req,res)=>{
-		console.log(req.user)
 		User.findOne({_id : req.params.id}).exec((err,result)=>{
 			if(result){
 				result.password = undefined
@@ -36,7 +35,7 @@ router.route('/users/:id')
 		try {
 			var jwtObj = jwt.verify(token,config.TOKEN_SECRET)
 			if(jwtObj.id != req.params.id){
-				res.status(403).json({success : false})
+				res.status(403).json({success : false, message : 'Not Authorized'})
 			} else {
 				User.findById(req.params.id,(err,result)=>{
 					if(result){
@@ -47,7 +46,7 @@ router.route('/users/:id')
 							if(result){
 								result.password = undefined
 								result.salt = undefined
-								res.json({user : result})
+								res.json({success : true, user : result})
 							} else {
 								res.json('Error Saving User : ' + err)
 							}
@@ -58,7 +57,7 @@ router.route('/users/:id')
 				})
 			}
 		} catch (e) {
-			res.status(403).json({success : false})
+			res.status(403).json({success : false, message : e})
 		}
 		
 	})
@@ -67,7 +66,7 @@ router.route('/users/:id')
 		try {
 			var jwtObj = jwt.verify(token,config.TOKEN_SECRET)
 			if(jwtObj.id != req.params.id){
-				res.status(403).json({success : false})
+				res.status(403).json({success : false, message : 'Not Authorized'})
 			} else {
 				User.findByIdAndRemove(req.params.id,(err,result)=>{
 					if(result){
@@ -78,7 +77,7 @@ router.route('/users/:id')
 				})
 			}
 		} catch (e) {
-			res.status(403).json({success : false})
+			res.status(403).json({success : false, message : e})
 		}
 	})
 
@@ -313,9 +312,15 @@ router.post('/signin',(req,res,next)=>{{
 router.post('/renewPassword', (req, res) => {
 	var passwordDetails = req.body
 	var token = req.body.token || req.headers['x-access-token'] || req.query.token
-	try {
-		var jwtObj = jwt.verify(token,config.TOKEN_SECRET)
-		if (passwordDetails.newPassword) {
+
+	if (!passwordDetails.currentPassword && !passwordDetails.newPassword && !passwordDetails.verifyPassword) {
+		res.status(400).send({
+			success : false,
+			message: 'Please provide all information',
+		});
+	} else {
+		try {
+			var jwtObj = jwt.verify(token,config.TOKEN_SECRET)
 			User.findById(jwtObj.id, function(err, user) {
 				if (!err && user) {
 					if (user.authenticate(passwordDetails.currentPassword)) {
@@ -360,15 +365,10 @@ router.post('/renewPassword', (req, res) => {
 					});
 				}
 			});
-		} else {
-			res.status(400).send({
-				success : false,
-				message: 'Please provide a new password'
-			});
+		} catch (e) {
+			res.status(403).json({success : false, message : e})
 		}
-	} catch (e) {
-	  res.status(403).json({success : false})
-  }
+	}
 		
 })
 
