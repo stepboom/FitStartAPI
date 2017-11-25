@@ -1,5 +1,8 @@
 var mongoose = require('mongoose')
-//var { User, Service, TimeSlot } = require('./schema')
+// var {User} = require('./user.server.model')
+// var {Service} = require('./service.server.model')
+// var {Timeslot} = require('./timeSlot.server.model')
+// var {Reservation} = require('./reservation.server.model')
 
 var description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac odio in mauris blandit pretium sit amet eu justo. Curabitur vestibulum, tellus a interdum vehicula, nunc magna vestibulum massa, viverra condimentum nisi elit id nunc. Fusce ultrices dictum accumsan.'
 
@@ -293,6 +296,13 @@ var Entities = {
             status : 0,
         },
     ],
+    Reservation : [
+        {
+            _id: 1,
+            traineeId: 2,
+            timeSlot: ['1', '2']
+        }
+    ]
 
 }
 
