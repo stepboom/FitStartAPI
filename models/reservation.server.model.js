@@ -4,11 +4,11 @@ var autoIncrement = require('mongoose-auto-increment')
 
 let reservationSchema = new Schema({
     traineeId : {
-        type : String,
+        type : Number,
         required : 'Please fill trainee id'
     },
     timeSlot : {
-        type : [String],
+        type : [Number],
         required : 'Please fill timeslot id'
     }
 })

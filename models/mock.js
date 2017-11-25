@@ -323,7 +323,7 @@ var Entities = {
         {
             _id: 1,
             traineeId: 2,
-            timeSlot: ['1', '2']
+            timeSlot: [1, 2]
         }
     ],
 
