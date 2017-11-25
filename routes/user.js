@@ -60,13 +60,23 @@ router.route('/users/:id')
 		
 	})
 	.delete((req,res)=>{
-		User.findByIdAndRemove(req.params.id,(err,result)=>{
-			if(result){
-				res.json({success :true})
+		var token = req.body.token || req.headers['x-access-token'] || req.query.token
+		try {
+			var jwtObj = jwt.verify(token,config.TOKEN_SECRET)
+			if(jwtObj.id != req.params.id){
+				res.status(403).json({success : false})
 			} else {
-				res.json('Error Deleting User ' + err)
+				User.findByIdAndRemove(req.params.id,(err,result)=>{
+					if(result){
+						res.json({success :true})
+					} else {
+						res.json('Error Deleting User ' + err)
+					}
+				})
 			}
-		})
+		} catch (e) {
+			res.status(403).json({success : false})
+		}
 	})
 
 router.get('/users/username/:username',(req,res)=>{

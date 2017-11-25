@@ -2,6 +2,8 @@ var express = require('express')
 var {Service} = require('../models/service.server.model')
 var {TimeSlot} = require('../models/timeSlot.server.model')
 var moment = require('moment')
+var jwt = require('jsonwebtoken')
+var config = require('../config')
 
 var router = express.Router()
 
@@ -85,13 +87,29 @@ router.route('/services/:id')
         
     })
     .delete((req, res) => {
-        Service.findByIdAndRemove(req.params.id, (err, result) => {
-            if (result) {
-                res.json({ success: true })
-            } else {
-                res.json('Error Deleting Service ' + err)
-            }
-        })
+        var token = req.body.token || req.headers['x-access-token'] || req.query.token
+		try {
+            var jwtObj = jwt.verify(token,config.TOKEN_SECRET)
+            Service.findById(req.params.id, (err, result) => {
+                if (result) {
+                    if(result.trainerId != jwtObj.id){
+                        res.status(403).json({success : false})
+                    } else {
+                        result.remove((err)=>{
+                            if(err){
+                                res.json('Error Removing Service ' + err)
+                            } else {
+                                res.json({ success: true })
+                            }
+                        })
+                    }
+                } else {
+                    res.json('Error Finding Service ' + err)
+                }
+            })
+        } catch (e) {
+            res.status(403).json({success : false})
+        }
 })
 
 router.get('/services/search/items',(req,res)=>{

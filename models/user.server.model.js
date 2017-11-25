@@ -59,11 +59,12 @@ let userSchema = new Schema({
 })
 
 userSchema.pre('save', function(next) {
-	if (this.password && this.password.length > 7) {
-		this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
-        this.password = this.hashPassword(this.password);
-	}
-
+    if (this.isModified('password')) {
+        if (this.password && this.password.length > 7) {
+            this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
+            this.password = this.hashPassword(this.password);
+        }
+    }
 	next();
 });
 
