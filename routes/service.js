@@ -2,6 +2,8 @@ var express = require('express')
 var {Service} = require('../models/service.server.model')
 var {TimeSlot} = require('../models/timeSlot.server.model')
 var moment = require('moment')
+var jwt = require('jsonwebtoken')
+var config = require('../config')
 
 var router = express.Router()
 
@@ -23,7 +25,7 @@ router.post('/service', (req,res)=>{
                 return timeSlot
             })
         
-            TimeSlot.insertMany(req.body.timeSlots, (err, timeSlots) => {
+            TimeSlot.create(req.body.timeSlots, (err, timeSlots) => {
                 if(err){
                     res.json('Error Saving TimeSlot :' + err)
                 } else {
@@ -41,21 +43,77 @@ router.get('/services',(req,res)=>{
         if(results)
             res.json({services : results})
         else
-            res.json('No Users')
+            res.json('No Services')
     })
 })
 
-router.get('/services/:id',(req,res)=>{
-	Service.findOne({_id : req.params.id}).exec((err,result)=>{
-        if(result)
-            res.json({success : true, service : result})
-        else
-            res.json({success : false})
+router.route('/services/:id')
+    .get((req, res) => {
+        Service.findOne({ _id: req.params.id }).exec((err, result) => {
+            if (result) {
+                res.json({ service: result })
+            } else {
+                res.json('No Services')
+            }
+        })
     })
+    .patch((req, res) => {
+        var token = req.body.token || req.headers['x-access-token'] || req.query.token
+		try {
+            var jwtObj = jwt.verify(token,config.TOKEN_SECRET)
+            Service.findById(req.params.id, (err, result) => {
+                if (result) {
+                    if(jwtObj.id != result.trainerId){
+                        res.status(403).json({success : false})
+                    } else {
+                        for (var attrname in req.body) {
+                            result[attrname] = req.body[attrname]
+                        }
+                        result.save((err, result) => {
+                            if (result) {
+                                res.json({ service: result })
+                            } else {
+                                res.json('Error Saving Service : ' + err)
+                            }
+                        })
+                    }
+                } else {
+                    res.json('No Services')
+                }
+            })
+		} catch (e) {
+            res.status(403).json({success : false})
+        }
+        
+    })
+    .delete((req, res) => {
+        var token = req.body.token || req.headers['x-access-token'] || req.query.token
+		try {
+            var jwtObj = jwt.verify(token,config.TOKEN_SECRET)
+            Service.findById(req.params.id, (err, result) => {
+                if (result) {
+                    if(result.trainerId != jwtObj.id){
+                        res.status(403).json({success : false})
+                    } else {
+                        result.remove((err)=>{
+                            if(err){
+                                res.json('Error Removing Service ' + err)
+                            } else {
+                                res.json({ success: true })
+                            }
+                        })
+                    }
+                } else {
+                    res.json('Error Finding Service ' + err)
+                }
+            })
+        } catch (e) {
+            res.status(403).json({success : false})
+        }
 })
 
-router.post('/services/search',(req,res)=>{
-	let keyword = req.body.keyword
+router.get('/services/search/items',(req,res)=>{
+    let keyword = req.query.keyword
 
 	let query = {}
 

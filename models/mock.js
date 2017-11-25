@@ -1,8 +1,12 @@
 var mongoose = require('mongoose')
+<<<<<<< HEAD
 // var {User} = require('./user.server.model')
 // var {Service} = require('./service.server.model')
 // var {Timeslot} = require('./timeSlot.server.model')
 // var {Reservation} = require('./reservation.server.model')
+=======
+//var { User, Service, TimeSlot , Review } = require('./schema')
+>>>>>>> 21810dca931eac5dfba7942498545745806b4eea
 
 var description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac odio in mauris blandit pretium sit amet eu justo. Curabitur vestibulum, tellus a interdum vehicula, nunc magna vestibulum massa, viverra condimentum nisi elit id nunc. Fusce ultrices dictum accumsan.'
 
@@ -181,108 +185,126 @@ var Entities = {
     ],
     TimeSlot: [
         {
+            _id : 1,
             serviceId : 1,
             startTime : '2017-05-19T14:00:00+07:00',
             endTime : '2017-05-19T16:00:00+07:00',
             status : 0,
         },
         {
+            _id : 2,
             serviceId: 1,
             startTime : '2017-05-19T12:00:00+07:00',
             endTime : '2017-05-19T14:00:00+07:00',
             status : 0,
         },
         {
+            _id : 3,
             serviceId: 1,
             startTime : '2017-05-19T18:00:00+07:00',
             endTime : '2017-05-19T20:00:00+07:00',
             status : 0,
         },
         {
+            _id : 4,
             serviceId: 1,
             startTime : '2017-05-19T08:00:00+07:00',
             endTime : '2017-05-19T10:00:00+07:00',
             status : 0,
         },
         {
+            _id : 5,
             serviceId: 2,
             startTime : '2017-05-19T14:00:00+07:00',
             endTime : '2017-05-19T16:00:00+07:00',
             status : 0,
         },
         {
+            _id : 6,
             serviceId: 2,
             startTime : '2017-05-19T17:00:00+07:00',
             endTime : '2017-05-19T18:00:00+07:00',
             status : 0,
         },
         {
+            _id : 7,
             serviceId: 3,
             startTime : '2017-05-19T14:00:00+07:00',
             endTime : '2017-05-19T16:00:00+07:00',
             status : 0,
         },
         {
+            _id : 8,
             serviceId: 4,
             startTime : '2017-05-19T12:00:00+07:00',
             endTime : '2017-05-19T15:00:00+07:00',
             status : 0,
         },
         {
+            _id : 9,
             serviceId: 4,
             startTime : '2017-05-19T10:00:00+07:00',
             endTime : '2017-05-19T12:00:00+07:00',
             status : 0,
         },
         {
+            _id : 10,
             serviceId: 5,
             startTime : '2017-05-19T14:00:00+07:00',
             endTime : '2017-05-19T16:00:00+07:00',
             status : 0,
         },
         {
+            _id : 11,
             serviceId: 5,
             startTime : '2017-05-19T12:00:00+07:00',
             endTime : '2017-05-19T14:00:00+07:00',
             status : 0,
         },
         {
+            _id : 12,
             serviceId: 5,
             startTime : '2017-05-19T15:00:00+07:00',
             endTime : '2017-05-19T17:00:00+07:00',
             status : 0,
         },
         {
+            _id : 13,
             serviceId: 6,
             startTime : '2017-05-19T10:00:00+07:00',
             endTime : '2017-05-19T12:00:00+07:00',
             status : 0,
         },
         {
+            _id : 14,
             serviceId: 6,
             startTime : '2017-05-19T13:00:00+07:00',
             endTime : '2017-05-19T15:00:00+07:00',
             status : 0,
         },
         {
+            _id : 15,
             serviceId: 7,
             startTime : '2017-05-19T16:00:00+07:00',
             endTime : '2017-05-19T18:00:00+07:00',
             status : 0,
         },
         {
+            _id : 16,
             serviceId: 8,
             startTime : '2017-05-19T13:00:00+07:00',
             endTime : '2017-05-19T15:00:00+07:00',
             status : 0,
         },
         {
+            _id : 17,
             serviceId: 8,
             startTime : '2017-05-19T10:00:00+07:00',
             endTime : '2017-05-19T12:00:00+07:00',
             status : 0,
         },
         {
+            _id : 18,
             serviceId: 9,
             day: 'Tuesday',
             startTime : '2017-05-19T08:00:00+07:00',
@@ -290,12 +312,14 @@ var Entities = {
             status : 0,
         },
         {
+            _id : 19,
             serviceId: 10,
             startTime : '2017-05-19T09:00:00+07:00',
             endTime : '2017-05-19T10:00:00+07:00',
             status : 0,
         },
     ],
+<<<<<<< HEAD
     Reservation : [
         {
             _id: 1,
@@ -303,6 +327,41 @@ var Entities = {
             timeSlot: ['1', '2']
         }
     ]
+=======
+    Review: [
+        {
+            _id : 1,
+            trainerId : 1,
+            comment : 'not bad',
+            rating : 3,
+        },
+        {
+            _id: 2,
+            trainerId: 1,
+            comment: 'good',
+            rating: 4,
+        },
+        {
+            _id: 3,
+            trainerId: 3,
+            comment: 'bad',
+            rating: 1,
+        },
+        {
+            _id: 4,
+            trainerId: 4,
+            comment: 'perfect',
+            rating: 5,
+        },
+        {
+            _id: 5,
+            trainerId: 4,
+            comment: 'awesome',
+            rating: 4,
+        },
+
+    ],
+>>>>>>> 21810dca931eac5dfba7942498545745806b4eea
 
 }
 

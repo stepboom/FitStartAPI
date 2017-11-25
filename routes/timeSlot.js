@@ -10,7 +10,7 @@ router.post('/timeSlots', (req,res)=>{
         return timeSlot
     })
 
-    TimeSlot.insertMany(req.body.timeSlots, (err, results) => {
+    TimeSlot.create(req.body.timeSlots, (err, results) => {
         if(err){
             res.json('Error Saving TimeSlot :' + err)
         } else {
@@ -18,6 +18,16 @@ router.post('/timeSlots', (req,res)=>{
         }
       })
    
+})
+
+router.get('/timeSlots',(req,res)=>{
+    TimeSlot.find({}).exec((err,results)=>{
+        if(results){
+            res.send({success :true, timeSlots : results})
+        } else {
+            res.send({success : false})
+        }
+    })
 })
 
 router.get('/timeSlots/service/:serviceId',(req,res)=>{
@@ -29,8 +39,8 @@ router.get('/timeSlots/service/:serviceId',(req,res)=>{
     })
 })
 
-router.post('/timeSlots/search',(req,res)=>{
-	let keyword = req.body.keyword
+router.get('/timeSlots/search/items',(req,res)=>{
+	let keyword = req.query.keyword
 
 	let query = {}
 
