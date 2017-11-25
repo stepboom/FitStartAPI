@@ -20,8 +20,11 @@ router.get('/users',(req,res)=>{
 
 router.route('/users/:id')
 	.get((req,res)=>{
+		console.log(req.user)
 		User.findOne({_id : req.params.id}).exec((err,result)=>{
 			if(result){
+				result.password = undefined
+				result.salt = undefined
 				res.json({user : result})
 			} else {
 				res.json('No Users')
@@ -82,6 +85,8 @@ router.route('/users/:id')
 router.get('/users/username/:username',(req,res)=>{
 	User.findOne({username : req.params.username}).exec((err,result)=>{
 		if(result){
+			result.password = undefined
+			result.salt = undefined
 			res.json({user : result})
 		} else {
 			res.json('No Users')
@@ -266,7 +271,7 @@ router.post('/signup', (req,res)=>{
     newUser.save((err,results)=>{
         if(results){
 
-        newUser.password = undefined;
+        	newUser.password = undefined;
 		    newUser.salt = undefined;
 
 			req.login(newUser, function(err) {
@@ -306,11 +311,12 @@ router.post('/signin',(req,res,next)=>{{
 }});
 
 router.post('/renewPassword', (req, res) => {
-  var passwordDetails = req.body;
-  //mockup functon
-	if (req.user) {
+	var passwordDetails = req.body
+	var token = req.body.token || req.headers['x-access-token'] || req.query.token
+	try {
+		var jwtObj = jwt.verify(token,config.TOKEN_SECRET)
 		if (passwordDetails.newPassword) {
-			User.findById(req.user.id, function(err, user) {
+			User.findById(jwtObj.id, function(err, user) {
 				if (!err && user) {
 					if (user.authenticate(passwordDetails.currentPassword)) {
 						if (passwordDetails.newPassword === passwordDetails.verifyPassword) {
@@ -319,6 +325,7 @@ router.post('/renewPassword', (req, res) => {
 							user.save(function(err) {
 								if (err) {
 									return res.status(400).send({
+										success : false,
 										message: errorHandler.getErrorMessage(err)
 									});
 								} else {
@@ -327,6 +334,7 @@ router.post('/renewPassword', (req, res) => {
 											res.status(400).send(err);
 										} else {
 											res.send({
+												success : true,
 												message: 'Password changed successfully'
 											});
 										}
@@ -335,31 +343,33 @@ router.post('/renewPassword', (req, res) => {
 							});
 						} else {
 							res.status(400).send({
+								success : false,
 								message: 'Passwords do not match'
 							});
 						}
 					} else {
 						res.status(400).send({
+							success : false,
 							message: 'Current password is incorrect'
 						});
 					}
 				} else {
 					res.status(400).send({
+						success : false,
 						message: 'User is not found'
 					});
 				}
 			});
 		} else {
 			res.status(400).send({
+				success : false,
 				message: 'Please provide a new password'
 			});
 		}
-	} else {
-		res.status(400).send({
-			message: 'User is not signed in'
-		});
-	}
-
+	} catch (e) {
+	  res.status(403).json({success : false})
+  }
+		
 })
 
 module.exports = router
