@@ -20,7 +20,8 @@ let serviceSchema = new Schema({
         required: 'Please fill service type'
     },
     experience: {
-        type: String       
+        type: String,
+        required: 'Please fill service experience'     
     },
     preferredLocation : {
         type: String,

@@ -56,22 +56,33 @@ router.route('/services/:id')
         })
     })
     .patch((req, res) => {
-        Service.findById(req.params.id, (err, result) => {
-            if (result) {
-                for (var attrname in req.body) {
-                    result[attrname] = req.body[attrname]
-                }
-                result.save((err, result) => {
-                    if (result) {
-                        res.json({ service: result })
+        var token = req.body.token || req.headers['x-access-token'] || req.query.token
+		try {
+            var jwtObj = jwt.verify(token,config.TOKEN_SECRET)
+            Service.findById(req.params.id, (err, result) => {
+                if (result) {
+                    if(jwtObj.id != result.trainerId){
+                        res.status(403).json({success : false})
                     } else {
-                        res.json('Error Saving Service : ' + err)
+                        for (var attrname in req.body) {
+                            result[attrname] = req.body[attrname]
+                        }
+                        result.save((err, result) => {
+                            if (result) {
+                                res.json({ service: result })
+                            } else {
+                                res.json('Error Saving Service : ' + err)
+                            }
+                        })
                     }
-                })
-            } else {
-                res.json('No Services')
-            }
-        })
+                } else {
+                    res.json('No Services')
+                }
+            })
+		} catch (e) {
+            res.status(403).json({success : false})
+        }
+        
     })
     .delete((req, res) => {
         Service.findByIdAndRemove(req.params.id, (err, result) => {

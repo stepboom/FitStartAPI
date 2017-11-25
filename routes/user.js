@@ -4,6 +4,8 @@ var passport = require('passport')
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var crypto = require('crypto')
+var jwt = require('jsonwebtoken')
+var config = require('../config')
 
 var router = express.Router()
 
@@ -26,23 +28,36 @@ router.route('/users/:id')
 			}
 		})
 	})
-	.patch((req,res)=>{
-		User.findById(req.params.id,(err,result)=>{
-			if(result){
-				for (var attrname in req.body) { 
-					result[attrname] = req.body[attrname] 
-				}
-				result.save((err,result)=>{
+	.patch((req,res,next)=>{
+		var token = req.body.token || req.headers['x-access-token'] || req.query.token
+		try {
+			var jwtObj = jwt.verify(token,config.TOKEN_SECRET)
+			if(jwtObj.id != req.params.id){
+				res.status(403).json({success : false})
+			} else {
+				User.findById(req.params.id,(err,result)=>{
 					if(result){
-						res.json({user : result})
+						for (var attrname in req.body) { 
+							result[attrname] = req.body[attrname] 
+						}
+						result.save((err,result)=>{
+							if(result){
+								result.password = undefined
+								result.salt = undefined
+								res.json({user : result})
+							} else {
+								res.json('Error Saving User : ' + err)
+							}
+						})
 					} else {
-						res.json('Error Saving User : ' + err)
+						res.json('No Users')
 					}
 				})
-			} else {
-				res.json('No Users')
 			}
-		})
+		} catch (e) {
+			res.status(403).json({success : false})
+		}
+		
 	})
 	.delete((req,res)=>{
 		User.findByIdAndRemove(req.params.id,(err,result)=>{
@@ -266,13 +281,14 @@ router.post('/signin',(req,res,next)=>{{
 		} else {
 			// Remove sensitive data before login
 			user.password = undefined;
-		    user.salt = undefined;
+			user.salt = undefined;
+			var token = jwt.sign({id : user._id, role : user.role},config.TOKEN_SECRET)
 
 			req.login(user, function(err) {
 				if (err) {
 					res.status(400).send(err);
 				} else {
-					res.json({user : user});
+					res.json({user : user, token : token});
 				}
 			});
 		}
