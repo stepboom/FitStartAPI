@@ -11,7 +11,7 @@ var user = require('./routes/user')
 var service = require('./routes/service')
 var mock = require('./routes/mock')
 var timeSlot = require('./routes/timeSlot')
-
+var reservation = require('./routes/reservation')
 var review = require('./routes/review')
 
 
