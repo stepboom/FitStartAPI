@@ -327,35 +327,59 @@ var Entities = {
             _id: 1,
             traineeId: 2,
             timeSlot: [1, 2],
-            status: 1
+            status: 2
         },
         {
             _id: 2,
             traineeId: 1,
             timeSlot: [1, 2],
-            status: 1
+            status: 5
         },
         {
             _id: 3,
             traineeId: 1,
             timeSlot: [1, 2],
-            status: 1
+            status: 5
         },
         {
             _id: 4,
             traineeId: 3,
             timeSlot: [1, 2],
-            status: 1
+            status: 5
         },
         {
             _id: 5,
             traineeId: 4,
             timeSlot: [1, 2],
-            status: 1
+            status: 5
         },
         {
             _id: 6,
             traineeId: 4,
+            timeSlot: [1, 2],
+            status: 3
+        },
+        {
+            _id: 7,
+            traineeId: 1,
+            timeSlot: [1, 2],
+            status: 4
+        },
+        {
+            _id: 8,
+            traineeId: 2,
+            timeSlot: [1, 2],
+            status: 1
+        },
+        {
+            _id: 9,
+            traineeId: 4,
+            timeSlot: [1, 2],
+            status: 2
+        },
+        {
+            _id: 10,
+            traineeId: 3,
             timeSlot: [1, 2],
             status: 1
         },
@@ -390,14 +414,7 @@ var Entities = {
             comment: 'perfect',
             rating: 5,
         },
-        {
-            _id: 5,
-            trainerId: 4,
-            reservationId: 6,
-            comment: 'awesome',
-            rating: 4,
-        },
-
+        
     ],
     Report: [
         {
