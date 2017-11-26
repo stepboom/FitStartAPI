@@ -17,6 +17,7 @@ router.get('/reservations',(req,res)=>{
 router.post('/reservation', (req,res)=>{
     let newReservation = new Reservation()
     newReservation.traineeId = req.body._id
+    newReservation.trainerId = req.body.trainerId
     newReservation.timeSlot = req.body.timeSlot
     newReservation.status = 1
     newReservation.save((err,results)=>{
