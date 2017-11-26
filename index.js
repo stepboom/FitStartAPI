@@ -13,6 +13,7 @@ var mock = require('./routes/mock')
 var timeSlot = require('./routes/timeSlot')
 var reservation = require('./routes/reservation')
 var review = require('./routes/review')
+var report = require('./routes/report')
 
 
 //Initialize MongoDB Connection
@@ -44,6 +45,7 @@ app.use(mock)
 app.use(timeSlot)
 app.use(reservation)
 app.use(review)
+app.use(report)
 
 
 app.get('/',(req,res)=>{

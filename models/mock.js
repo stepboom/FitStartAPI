@@ -3,7 +3,10 @@ var mongoose = require('mongoose')
 var {User} = require('./user.server.model')
 var {Service} = require('./service.server.model')
 var {Timeslot} = require('./timeSlot.server.model')
-var {Reservation} = require('./reservation.server.model')
+var { Reservation } = require('./reservation.server.model')
+var { Review } = require('./review.server.model')
+var { Report } = require('./report.server.model')
+
 
 //var { User, Service, TimeSlot , Review } = require('./schema')
 
@@ -393,6 +396,19 @@ var Entities = {
             reservationId: 6,
             comment: 'awesome',
             rating: 4,
+        },
+
+    ],
+    Report: [
+        {
+            _id: 1,
+            comment: 'I hate him',
+            trainerId: 1,
+        },
+        {
+            _id: 2,
+            comment: 'He is very bad, most of his advise is not practical',
+            trainerId: 3,
         },
 
     ],
