@@ -326,54 +326,63 @@ var Entities = {
         {
             _id: 1,
             traineeId: 2,
+            trainerId: 1,
             timeSlot: [1, 2],
             status: 2
         },
         {
             _id: 2,
             traineeId: 1,
+            trainerId: 1,
             timeSlot: [1, 2],
             status: 5
         },
         {
             _id: 3,
             traineeId: 1,
+            trainerId: 1,
             timeSlot: [5, 6],
             status: 5
         },
         {
             _id: 4,
             traineeId: 3,
+            trainerId: 3,
             timeSlot: [10, 11],
             status: 5
         },
         {
             _id: 5,
             traineeId: 4,
+            trainerId: 4,
             timeSlot: [16, 17],
             status: 5
         },
         {
             _id: 6,
             traineeId: 4,
+            trainerId: 4,
             timeSlot: [16, 17],
             status: 3
         },
         {
             _id: 7,
             traineeId: 1,
+            trainerId: 1,
             timeSlot: [3, 4],
             status: 4
         },
         {
             _id: 8,
             traineeId: 4,
+            trainerId: 3,
             timeSlot: [13, 14],
             status: 2
         },
         {
             _id: 9,
             traineeId: 3,
+            trainerId: 3,
             timeSlot: [10, 11],
             status: 1
         },
