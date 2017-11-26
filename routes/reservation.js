@@ -51,5 +51,43 @@ router.get('/reservations/trainer/:trainerId',(req,res)=>{
     })
 })
 
+router.route('/reservations/:id')
+.get((req, res) => {
+    Reservation.findOne({ _id: req.params.id }).exec((err, result) => {
+        if (result) {
+            res.json({ Reservation: result })
+        } else {
+            res.json('No Reservation')
+        }
+    })
+})
+.patch((req, res) => {
+    Reservation.findById(req.params.id, (err, result) => {
+        if (result) {
+            for (var attrname in req.body) {
+                result[attrname] = req.body[attrname]
+            }
+            result.save((err, result) => {
+                if (result) {
+                    res.json({ reservation: result })
+                } else {
+                    res.json('Error Saving Reservation : ' + err)
+                }
+            })
+        } else {
+            res.json('No Reservations')
+        }
+    })
+})
+.delete((req, res) => {
+    Reservation.findByIdAndRemove(req.params.id, (err, result) => {
+        if (result) {
+            res.json({ success: true })
+        } else {
+            res.json('Error Deleting Reservation ' + err)
+        }
+    })
+})
+
 module.exports = router
 
