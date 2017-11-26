@@ -7,6 +7,7 @@ router.post('/report', (req, res) => {
     let newReport = new Report()
     newReport.comment = req.body.comment
     newReport.trainerId = req.body.trainerId
+    newReport.traineeId = req.body.traineeId
 
     newReport.save((err,result)=>{
         if (result) {

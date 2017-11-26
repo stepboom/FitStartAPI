@@ -13,6 +13,10 @@ let reportSchema = new Schema({
         type: Number,
         required: 'Please fill trainer ID'
     },
+    traineeId: {
+        type: Number,
+        required: 'Please fill trainee ID'
+    },
 })
 
 reportSchema.plugin(autoIncrement.plugin, {
