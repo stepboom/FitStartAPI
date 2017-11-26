@@ -97,4 +97,14 @@ router.get('/reviews/trainer/:trainerId',(req,res)=>{
     })
 })
 
+router.get('/reviews/reservation/:reservationId', (req, res) => {
+    Review.find({ reservationId: req.params.reservationId }).exec((err, results) => {
+        if (results)
+            res.json({ success: true, reviews: results })
+        else
+            res.json({ success: false })
+    })
+})
+
+
 module.exports = router

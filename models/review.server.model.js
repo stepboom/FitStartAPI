@@ -9,6 +9,10 @@ let reviewSchema = new Schema({
         type: Number,
         required: 'Please fill trainer ID'
     },
+    reservationId: {
+        type: Number,
+        required: 'Please fill reservation ID'
+    },
     comment: {
         type: String,
         required: 'Please fill your comment'
