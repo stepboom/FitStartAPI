@@ -1,9 +1,9 @@
 var mongoose = require('mongoose')
 
-// var {User} = require('./user.server.model')
-// var {Service} = require('./service.server.model')
-// var {Timeslot} = require('./timeSlot.server.model')
-// var {Reservation} = require('./reservation.server.model')
+var {User} = require('./user.server.model')
+var {Service} = require('./service.server.model')
+var {Timeslot} = require('./timeSlot.server.model')
+var {Reservation} = require('./reservation.server.model')
 
 //var { User, Service, TimeSlot , Review } = require('./schema')
 
@@ -323,7 +323,8 @@ var Entities = {
         {
             _id: 1,
             traineeId: 2,
-            timeSlot: [1, 2]
+            timeSlot: [1, 2],
+            status: 1
         }
     ],
 

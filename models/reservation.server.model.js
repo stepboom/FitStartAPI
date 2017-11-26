@@ -10,6 +10,10 @@ let reservationSchema = new Schema({
     timeSlot : {
         type : [Number],
         required : 'Please fill timeslot id'
+    },
+    status : {
+        type : Number,
+        required : 'Please fill reservations status'
     }
 })
 
