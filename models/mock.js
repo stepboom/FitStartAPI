@@ -323,6 +323,7 @@ var Entities = {
         {
             _id: 1,
             traineeId: 2,
+            trainerId: 1,
             timeSlot: [1, 2],
             status: 1
         },
