@@ -3,7 +3,10 @@ var mongoose = require('mongoose')
 var {User} = require('./user.server.model')
 var {Service} = require('./service.server.model')
 var {Timeslot} = require('./timeSlot.server.model')
-var {Reservation} = require('./reservation.server.model')
+var { Reservation } = require('./reservation.server.model')
+var { Review } = require('./review.server.model')
+var { Report } = require('./report.server.model')
+
 
 //var { User, Service, TimeSlot , Review } = require('./schema')
 
@@ -189,28 +192,28 @@ var Entities = {
             serviceId : 1,
             startTime : '2017-05-19T14:00:00+07:00',
             endTime : '2017-05-19T16:00:00+07:00',
-            status : 0,
+            status : 1,
         },
         {
             _id : 2,
             serviceId: 1,
             startTime : '2017-05-19T12:00:00+07:00',
             endTime : '2017-05-19T14:00:00+07:00',
-            status : 0,
+            status : 1,
         },
         {
             _id : 3,
             serviceId: 1,
             startTime : '2017-05-19T18:00:00+07:00',
             endTime : '2017-05-19T20:00:00+07:00',
-            status : 0,
+            status : 1,
         },
         {
             _id : 4,
             serviceId: 1,
             startTime : '2017-05-19T08:00:00+07:00',
             endTime : '2017-05-19T10:00:00+07:00',
-            status : 0,
+            status : 1,
         },
         {
             _id : 5,
@@ -273,14 +276,14 @@ var Entities = {
             serviceId: 6,
             startTime : '2017-05-19T10:00:00+07:00',
             endTime : '2017-05-19T12:00:00+07:00',
-            status : 0,
+            status : 1,
         },
         {
             _id : 14,
             serviceId: 6,
             startTime : '2017-05-19T13:00:00+07:00',
             endTime : '2017-05-19T15:00:00+07:00',
-            status : 0,
+            status : 1,
         },
         {
             _id : 15,
@@ -294,14 +297,14 @@ var Entities = {
             serviceId: 8,
             startTime : '2017-05-19T13:00:00+07:00',
             endTime : '2017-05-19T15:00:00+07:00',
-            status : 0,
+            status : 1,
         },
         {
             _id : 17,
             serviceId: 8,
             startTime : '2017-05-19T10:00:00+07:00',
             endTime : '2017-05-19T12:00:00+07:00',
-            status : 0,
+            status : 1,
         },
         {
             _id : 18,
@@ -325,36 +328,54 @@ var Entities = {
             traineeId: 2,
             trainerId: 1,
             timeSlot: [1, 2],
-            status: 1
+            status: 2
         },
         {
             _id: 2,
             traineeId: 1,
             timeSlot: [1, 2],
-            status: 1
+            status: 5
         },
         {
             _id: 3,
             traineeId: 1,
-            timeSlot: [1, 2],
-            status: 1
+            timeSlot: [5, 6],
+            status: 5
         },
         {
             _id: 4,
             traineeId: 3,
-            timeSlot: [1, 2],
-            status: 1
+            timeSlot: [10, 11],
+            status: 5
         },
         {
             _id: 5,
             traineeId: 4,
-            timeSlot: [1, 2],
-            status: 1
+            timeSlot: [16, 17],
+            status: 5
         },
         {
             _id: 6,
             traineeId: 4,
-            timeSlot: [1, 2],
+            timeSlot: [16, 17],
+            status: 3
+        },
+        {
+            _id: 7,
+            traineeId: 1,
+            timeSlot: [3, 4],
+            status: 4
+        },
+        {
+            _id: 8,
+            traineeId: 4,
+            timeSlot: [13, 14],
+            status: 2
+        },
+        {
+            _id: 9,
+            traineeId: 3,
+            timeSlot: [10, 11],
             status: 1
         },
     ],
@@ -388,12 +409,20 @@ var Entities = {
             comment: 'perfect',
             rating: 5,
         },
+        
+    ],
+    Report: [
         {
-            _id: 5,
-            trainerId: 4,
-            reservationId: 6,
-            comment: 'awesome',
-            rating: 4,
+            _id: 1,
+            comment: 'I hate him',
+            trainerId: 1,
+            traineeId: 1,
+        },
+        {
+            _id: 2,
+            comment: 'He is very bad, most of his advise is not practical',
+            trainerId: 3,
+            traineeId: 3,
         },
 
     ],
