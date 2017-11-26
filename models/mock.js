@@ -325,6 +325,7 @@ var Entities = {
     Reservation : [
         {
             _id: 1,
+            serviceId: 1,
             traineeId: 2,
             trainerId: 1,
             timeSlot: [1, 2],
@@ -332,6 +333,7 @@ var Entities = {
         },
         {
             _id: 2,
+            serviceId: 1,
             traineeId: 1,
             trainerId: 1,
             timeSlot: [1, 2],
@@ -339,6 +341,7 @@ var Entities = {
         },
         {
             _id: 3,
+            serviceId: 2,
             traineeId: 1,
             trainerId: 1,
             timeSlot: [5, 6],
@@ -346,6 +349,7 @@ var Entities = {
         },
         {
             _id: 4,
+            serviceId: 5,
             traineeId: 3,
             trainerId: 3,
             timeSlot: [10, 11],
@@ -353,6 +357,7 @@ var Entities = {
         },
         {
             _id: 5,
+            serviceId: 8,
             traineeId: 4,
             trainerId: 4,
             timeSlot: [16, 17],
@@ -360,6 +365,7 @@ var Entities = {
         },
         {
             _id: 6,
+            serviceId: 8,
             traineeId: 4,
             trainerId: 4,
             timeSlot: [16, 17],
@@ -367,6 +373,7 @@ var Entities = {
         },
         {
             _id: 7,
+            serviceId: 1,
             traineeId: 1,
             trainerId: 1,
             timeSlot: [3, 4],
@@ -374,6 +381,7 @@ var Entities = {
         },
         {
             _id: 8,
+            serviceId: 6,
             traineeId: 4,
             trainerId: 3,
             timeSlot: [13, 14],
@@ -381,6 +389,7 @@ var Entities = {
         },
         {
             _id: 9,
+            serviceId: 5,
             traineeId: 3,
             trainerId: 3,
             timeSlot: [10, 11],

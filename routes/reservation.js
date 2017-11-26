@@ -1,6 +1,8 @@
 var express = require('express')
 var {Reservation} = require('../models/reservation.server.model')
 var {TimeSlot} = require('../models/timeSlot.server.model')
+var jwt = require('jsonwebtoken')
+var config = require('../config')
 
 var router = express.Router()
 
@@ -14,15 +16,16 @@ router.get('/reservations',(req,res)=>{
     })
 })
 
-router.post('/reservation', (req,res)=>{
+router.post('/reservation/:serviceId', (req,res)=>{
     let newReservation = new Reservation()
-    newReservation.traineeId = req.body._id
+    newReservation.traineeId = req.body.traineeId
+    newReservation.trainerId = req.body.trainerId
     newReservation.timeSlot = req.body.timeSlot
-    newReservation.trainerId = req.body.timeSlot[0].serviceId.trainerId
+    newReservation.serviceId = req.params.serviceId
     newReservation.status = 1
-    newReservation.save((err,results)=>{
+    newReservation.save((err,result)=>{
         if(results) {   
-            res.json({reservations : results})   
+            res.json({reservation : result})   
         } else {
             res.json('Error Saving Reservation :' + err)
         }
@@ -30,9 +33,8 @@ router.post('/reservation', (req,res)=>{
 })
 
 router.get('/reservations/trainee/:traineeId',(req,res)=>{
-    Reservation.find({traineeId : req.params.traineeId}).exec((err,results)=>{
+    Reservation.find({traineeId : req.params.traineeId, status : req.query.status}).exec((err,results)=>{
         if(results) {
-            console.log(results)
             res.json({success : true, reservations : results})
         } else {
             res.json({success : false})
@@ -41,7 +43,7 @@ router.get('/reservations/trainee/:traineeId',(req,res)=>{
 })
 
 router.get('/reservations/trainer/:trainerId',(req,res)=>{
-    Reservation.find({trainerId : req.params.trainerId}).exec((err,results)=>{
+    Reservation.find({trainerId : req.params.trainerId, status : req.query.status}).exec((err,results)=>{
         if(results) {
             console.log(results)
             res.json({success : true, reservations : results})
@@ -62,31 +64,57 @@ router.route('/reservations/:id')
     })
 })
 .patch((req, res) => {
-    Reservation.findById(req.params.id, (err, result) => {
-        if (result) {
-            for (var attrname in req.body) {
-                result[attrname] = req.body[attrname]
-            }
-            result.save((err, result) => {
-                if (result) {
-                    res.json({ reservation: result })
+    var token = req.body.token || req.headers['x-access-token'] || req.query.token
+    try {
+        var jwtObj = jwt.verify(token, config.TOKEN_SECRET)
+        Reservation.findById(req.params.id, (err, result) => {
+            if (result) {
+                if (jwtObj.id != result.trainerId || jwtObj.id != result.traineeId ) {
+                    res.status(403).json({ success: false , message : 'Not Authorized'})
                 } else {
-                    res.json('Error Saving Reservation : ' + err)
-                }
-            })
-        } else {
-            res.json('No Reservations')
-        }
-    })
+                    for (var attrname in req.body) {
+                        result[attrname] = req.body[attrname]
+                    }
+                    result.save((err, result) => {
+                        if (result) {
+                            res.json({ reservation: result })
+                        } else {
+                            res.json('Error Saving Reservation : ' + err)
+                        }
+                    })
+                } 
+            } else {
+                res.json('No Reservations')
+            }
+        })
+    } catch (e) {
+        res.status(403).json({ success: false , message : e})
+    }
 })
 .delete((req, res) => {
-    Reservation.findByIdAndRemove(req.params.id, (err, result) => {
-        if (result) {
-            res.json({ success: true })
-        } else {
-            res.json('Error Deleting Reservation ' + err)
-        }
-    })
+    var token = req.body.token || req.headers['x-access-token'] || req.query.token
+    try {
+        var jwtObj = jwt.verify(token, config.TOKEN_SECRET)
+        Reservation.findById(req.params.id, (err, result) => {
+            if (result) {
+                if (jwtObj.id != result.trainerId || jwtObj.id != result.traineeId ) {
+                    res.status(403).json({ success: false , message : 'Not Authorized'})
+                } else {
+                    result.remove((err)=>{
+                        if(err){
+                            res.json('Error Removing Reservation ' + err)
+                        } else {
+                            res.json({ success: true })
+                        }
+                    })
+                } 
+            } else {
+                res.json('No Reservations')
+            }
+        })
+    } catch (e) {
+        res.status(403).json({ success: false , message : e})
+    }
 })
 
 module.exports = router

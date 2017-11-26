@@ -3,6 +3,10 @@ var Schema = mongoose.Schema
 var autoIncrement = require('mongoose-auto-increment')
 
 let reservationSchema = new Schema({
+    serviceId : {
+        type : Number,
+        required : 'Please fill service id'
+    },
     traineeId : {
         type : Number,
         required : 'Please fill trainee id'

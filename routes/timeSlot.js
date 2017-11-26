@@ -52,7 +52,6 @@ router.route('/timeSlots/service/:serviceId')
                     if (jwtObj.id != service.trainerId) {
                         res.status(403).json({ success: false , message : 'Not Authorized'})
                     } else {
-                        console.log(req.body.timeSlots)
                         TimeSlot.update({_id : {$in : req.body.timeSlots}},{$set : {status : req.body.status}},{multi : true},(err, result) => {
                             if (result) {
                                 res.json({ success : result.ok==1})
