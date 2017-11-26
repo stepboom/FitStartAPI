@@ -1,12 +1,15 @@
 var express = require('express')
 var {TimeSlot} = require('../models/timeSlot.server.model')
+var {Service} = require('../models/service.server.model')
+var jwt = require('jsonwebtoken')
+var config = require('../config')
 
 var router = express.Router()
 
-router.post('/timeSlots', (req,res)=>{
+router.post('/timeSlots/:serviceId', (req,res)=>{
 
     req.body.timeSlots.map((timeSlot)=>{
-        timeSlot.serviceId = req.body.serviceId;
+        timeSlot.serviceId = req.params.serviceId;
         return timeSlot
     })
 
@@ -30,16 +33,9 @@ router.get('/timeSlots',(req,res)=>{
     })
 })
 
-/*router.get('/timeSlots/service/:serviceId',(req,res)=>{
-    TimeSlot.find({serviceId : req.params.serviceId}).sort({startTime : 1}).exec((err,results) => {
-        if(results)
-            res.json({success : true, timeSlots : results})
-        else
-            res.json('No TimeSlots')
-    })*/
 router.route('/timeSlots/service/:serviceId')
     .get((req, res) => {
-        TimeSlot.findOne({ serviceId: req.params.serviceId }).exec((err, results) => {
+        TimeSlot.find({ serviceId: req.params.serviceId }).exec((err, results) => {
             if (results) {
                 res.json({ timeSlots: results })
             } else {
@@ -47,59 +43,56 @@ router.route('/timeSlots/service/:serviceId')
             }
         })
     })
-        .patch((req, res) => {
-            var token = req.body.token || req.headers['x-access-token'] || req.query.token
-            try {
-                var jwtObj = jwt.verify(token, config.TOKEN_SECRET)
-                TimeSlot.findById(req.params.serviceId, (err, result) => {
-                    if (result) {
-                        if (jwtObj.id != result.serviceId) {
-                            res.status(403).json({ success: false })
-                        } else {
-                            for (var attrname in req.body) {
-                                result[attrname] = req.body[attrname]
+    .patch((req, res) => {
+        var token = req.body.token || req.headers['x-access-token'] || req.query.token
+        try {
+            var jwtObj = jwt.verify(token, config.TOKEN_SECRET)
+            Service.findById(req.params.serviceId, (err, service)=>{
+                if(service){
+                    if (jwtObj.id != service.trainerId) {
+                        res.status(403).json({ success: false , message : 'Not Authorized'})
+                    } else {
+                        console.log(req.body.timeSlots)
+                        TimeSlot.update({_id : {$in : req.body.timeSlots}},{$set : {status : req.body.status}},{multi : true},(err, result) => {
+                            if (result) {
+                                res.json({ success : result.ok==1})
+                            } else {
+                                res.json('Error Updating timeSlot : ' + err)
                             }
-                            result.save((err, result) => {
-                                if (result) {
-                                    res.json({ timeSlot: result })
-                                } else {
-                                    res.json('Error Saving timeSlot : ' + err)
-                                }
-                            })
-                        }
-                    } else {
-                        res.json('No TimeSlots')
+                        })
                     }
-                })
-            } catch (e) {
-                res.status(403).json({ success: false })
-            }
-
-        })
-        .delete((req, res) => {
-            var token = req.body.token || req.headers['x-access-token'] || req.query.token
-            try {
-                var jwtObj = jwt.verify(token, config.TOKEN_SECRET)
-                TimeSlot.findById(req.params.serviceId, (err, result) => {
-                    if (result) {
-                        if (result.serviceId != jwtObj.id) {
-                            res.status(403).json({ success: false })
-                        } else {
-                            result.remove((err) => {
-                                if (err) {
-                                    res.json('Error Removing TimeSlot ' + err)
-                                } else {
-                                    res.json({ success: true })
-                                }
-                            })
-                        }
+                } else {
+                    res.json('Error Service Not Found')
+                }
+            })
+        } catch (e) {
+            res.status(403).json({ success: false , message : e})
+        }
+    })
+    .delete((req, res) => {
+        var token = req.body.token || req.headers['x-access-token'] || req.query.token
+        try {
+            var jwtObj = jwt.verify(token, config.TOKEN_SECRET)
+            Service.findById(req.params.serviceId, (err, service)=>{
+                if(service){
+                    if (jwtObj.id != service.trainerId) {
+                        res.status(403).json({ success: false , message : 'Not Authorized'})
                     } else {
-                        res.json('Error Finding TimeSlot ' + err)
+                        TimeSlot.remove({_id : {$in : req.body.timeSlots}},(err) => {
+                            if (err) {
+                                res.json('Error Removing TimeSlot ' + err)
+                            } else {
+                                res.json({ success: true })
+                            }
+                        })
                     }
-                })
-            } catch (e) {
-                res.status(403).json({ success: false })
-            }
+                } else {
+                    res.json('Error Service Not Found')
+                }
+            })
+        } catch (e) {
+            res.status(403).json({ success: false , message : e})
+        }
 })
 
 router.get('/timeSlots/search/items',(req,res)=>{
