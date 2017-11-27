@@ -96,39 +96,45 @@ router.route('/services/:id')
                     if(result.trainerId != jwtObj.id){
                         res.status(403).json({success : false})
                     } else {
-                        Reservation.find({serviceId : result._id}).exec((err,results)=>{
-                            if (results) {
-                                results.forEach(function(reservation) {
-                                    reservation.remove((err)=>{
-                                        if (err) {
-                                            res.json('Error Removing Reservation' + err)
-                                        }
-                                    })
+                        Reservation.find({serviceId : result._id, status : {$in : [2,3,4]}}).exec((err,re)=>{
+                            if (re.length !== 0) {
+                                res.status(403).json({success : false})
+                            } else {
+                                Reservation.find({serviceId : result._id}).exec((err,results)=>{
+                                    if (results) {
+                                        results.forEach(function(reservation) {
+                                            reservation.remove((err)=>{
+                                                if (err) {
+                                                    res.json('Error Removing Reservation' + err)
+                                                }
+                                            })
+                                        })
+                                    } else {
+                                        res.json('Cannot find reservation' + err)
+                                    }
                                 })
-                            } else {
-                                res.json('Cannot find reservation' + err)
-                            }
-                        })
 
-                        TimeSlot.find({serviceId : result._id}).exec((err,results)=>{
-                            if (results) {
-                                results.forEach(function(timeslot) {
-                                    timeslot.remove((err)=>{
-                                        if (err) {
-                                            res.json('Error Removing Timeslot' + err)
-                                        }
-                                    })
+                                TimeSlot.find({serviceId : result._id}).exec((err,results)=>{
+                                    if (results) {
+                                        results.forEach(function(timeslot) {
+                                            timeslot.remove((err)=>{
+                                                if (err) {
+                                                    res.json('Error Removing Timeslot' + err)
+                                                }
+                                            })
+                                        })
+                                    } else {
+                                        res.json('Cannot find timeslot' + err)
+                                    }
                                 })
-                            } else {
-                                res.json('Cannot find timeslot' + err)
-                            }
-                        })
 
-                        result.remove((err)=>{
-                            if(err){
-                                res.json('Error Removing Service ' + err)
-                            } else {
-                                res.json({ success: true })
+                                result.remove((err)=>{
+                                    if(err){
+                                        res.json('Error Removing Service ' + err)
+                                    } else {
+                                        res.json({ success: true })
+                                    }
+                                })
                             }
                         })
                     }
@@ -136,7 +142,9 @@ router.route('/services/:id')
                     res.json('Error Finding Service ' + err)
                 }
             })
+                
         } catch (e) {
+            console.log('a')
             res.status(403).json({success : false})
         }
 })
