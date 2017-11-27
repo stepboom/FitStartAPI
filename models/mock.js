@@ -66,6 +66,18 @@ var Entities = {
             telephoneNumber : '098-765-8877',
             role : 'Trainer',
             rating : 4
+        },
+        {
+            _id : 5,
+            username : 'test5',
+            password : '12345678',
+            email : 'speroni_romeo@gmail.com',
+            firstName : 'Speroni',
+            lastName : 'Romeo',
+            gender : 1,
+            address : 'Timeless Place',
+            telephoneNumber : '096-567-1155',
+            role : 'Trainee',
         }
     ] ,
     Service : [
@@ -192,63 +204,63 @@ var Entities = {
             serviceId : 1,
             startTime : '2017-05-19T14:00:00+07:00',
             endTime : '2017-05-19T16:00:00+07:00',
-            status : 1,
+            status : 0,
         },
         {
             _id : 2,
             serviceId: 1,
             startTime : '2017-05-19T12:00:00+07:00',
             endTime : '2017-05-19T14:00:00+07:00',
-            status : 1,
+            status : 0,
         },
         {
             _id : 3,
             serviceId: 1,
             startTime : '2017-05-19T18:00:00+07:00',
             endTime : '2017-05-19T20:00:00+07:00',
-            status : 1,
+            status : 0,
         },
         {
             _id : 4,
             serviceId: 1,
             startTime : '2017-05-19T08:00:00+07:00',
             endTime : '2017-05-19T10:00:00+07:00',
-            status : 1,
+            status : 0,
         },
         {
             _id : 5,
             serviceId: 2,
             startTime : '2017-05-19T14:00:00+07:00',
             endTime : '2017-05-19T16:00:00+07:00',
-            status : 0,
+            status : 1,
         },
         {
             _id : 6,
             serviceId: 2,
             startTime : '2017-05-19T17:00:00+07:00',
             endTime : '2017-05-19T18:00:00+07:00',
-            status : 0,
+            status : 1,
         },
         {
             _id : 7,
             serviceId: 3,
             startTime : '2017-05-19T14:00:00+07:00',
             endTime : '2017-05-19T16:00:00+07:00',
-            status : 0,
+            status : 1,
         },
         {
             _id : 8,
             serviceId: 4,
             startTime : '2017-05-19T12:00:00+07:00',
             endTime : '2017-05-19T15:00:00+07:00',
-            status : 0,
+            status : 1,
         },
         {
             _id : 9,
             serviceId: 4,
             startTime : '2017-05-19T10:00:00+07:00',
             endTime : '2017-05-19T12:00:00+07:00',
-            status : 0,
+            status : 1,
         },
         {
             _id : 10,
@@ -269,7 +281,7 @@ var Entities = {
             serviceId: 5,
             startTime : '2017-05-19T15:00:00+07:00',
             endTime : '2017-05-19T17:00:00+07:00',
-            status : 0,
+            status : 1,
         },
         {
             _id : 13,
@@ -290,7 +302,7 @@ var Entities = {
             serviceId: 7,
             startTime : '2017-05-19T16:00:00+07:00',
             endTime : '2017-05-19T18:00:00+07:00',
-            status : 0,
+            status : 1,
         },
         {
             _id : 16,
@@ -329,87 +341,94 @@ var Entities = {
             traineeId: 2,
             trainerId: 1,
             timeSlot: [1, 2],
-            status: 2
+            status: 1
         },
         {
             _id: 2,
             serviceId: 1,
-            traineeId: 1,
+            traineeId: 2,
             trainerId: 1,
-            timeSlot: [1, 2],
-            status: 5
+            timeSlot: [3, 4],
+            status: 0
         },
         {
             _id: 3,
             serviceId: 2,
-            traineeId: 1,
+            traineeId: 2,
             trainerId: 1,
-            timeSlot: [5, 6],
-            status: 5
+            timeSlot: [5],
+            status: 2,
+            price : 600
         },
         {
             _id: 4,
-            serviceId: 5,
-            traineeId: 3,
-            trainerId: 3,
-            timeSlot: [10, 11],
-            status: 5
+            serviceId: 2,
+            traineeId: 2,
+            trainerId: 1,
+            timeSlot: [6],
+            status: 3,
+            price : 650
         },
         {
             _id: 5,
-            serviceId: 8,
+            serviceId: 3,
             traineeId: 2,
-            trainerId: 4,
-            timeSlot: [16, 17],
-            status: 5
+            trainerId: 1,
+            timeSlot: [7],
+            status: 4,
+            price : 300
         },
         {
             _id: 6,
-            serviceId: 8,
-            traineeId: 4,
-            trainerId: 4,
-            timeSlot: [16, 17],
-            status: 3
+            serviceId: 4,
+            traineeId: 2,
+            trainerId: 1,
+            timeSlot: [8, 9],
+            status: 5,
+            price : 1200
         },
         {
             _id: 7,
-            serviceId: 1,
-            traineeId: 1,
-            trainerId: 1,
-            timeSlot: [3, 4],
-            status: 4
+            serviceId: 5,
+            traineeId: 2,
+            trainerId: 2,
+            timeSlot: [10, 11],
+            status: 1
         },
         {
             _id: 8,
-            serviceId: 6,
-            traineeId: 4,
-            trainerId: 3,
-            timeSlot: [13, 14],
-            status: 2
+            serviceId: 5,
+            traineeId: 5,
+            trainerId: 2,
+            timeSlot: [10, 11],
+            status: 1
         },
         {
             _id: 9,
             serviceId: 5,
-            traineeId: 3,
-            trainerId: 3,
-            timeSlot: [10, 11],
-            status: 1
+            traineeId: 5,
+            trainerId: 5,
+            timeSlot: [12],
+            status: 2,
+            price : 450
         },
         {
             _id: 10,
-            serviceId: 3,
+            serviceId: 6,
             traineeId: 2,
-            trainerId: 1,
-            timeSlot: [0],
-            status: 1
+            trainerId: 5,
+            timeSlot: [13],
+            status: 3,
+            price : 1600
         },
         {
             _id: 11,
-            serviceId: 2,
+            serviceId: 6,
             traineeId: 2,
-            trainerId: 1,
-            timeSlot: [5, 6],
-            status: 3
+            trainerId: 5,
+            timeSlot: [14],
+            status: 4,
+            price : 1700
         },
         {
             _id: 12,
@@ -417,7 +436,26 @@ var Entities = {
             traineeId: 2,
             trainerId: 4,
             timeSlot: [15],
-            status: 4
+            status: 5,
+            price : 2400
+        },
+        {
+            _id: 13,
+            serviceId: 8,
+            traineeId: 5,
+            trainerId: 4,
+            timeSlot: [16],
+            status: 5,
+            price : 3500
+        },
+        {
+            _id: 14,
+            serviceId: 8,
+            traineeId: 5,
+            trainerId: 4,
+            timeSlot: [17],
+            status: 5,
+            price : 3600
         },
     ],
 
@@ -425,28 +463,28 @@ var Entities = {
         {
             _id : 1,
             trainerId : 1,
-            reservationId : 2,
+            reservationId : 6,
             comment : 'not bad',
             rating : 3,
         },
         {
             _id: 2,
-            trainerId: 1,
-            reservationId: 3,
+            trainerId: 4,
+            reservationId: 12,
             comment: 'good',
             rating: 4,
         },
         {
             _id: 3,
-            trainerId: 3,
-            reservationId: 4,
+            trainerId: 4,
+            reservationId: 13,
             comment: 'bad',
             rating: 1,
         },
         {
             _id: 4,
             trainerId: 4,
-            reservationId: 5,
+            reservationId: 14,
             comment: 'perfect',
             rating: 5,
         },

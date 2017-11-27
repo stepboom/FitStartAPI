@@ -22,6 +22,9 @@ let reservationSchema = new Schema({
     status : {
         type : Number,
         required : 'Please fill reservations status'
+    },
+    price : {
+        type :Number
     }
 })
 
