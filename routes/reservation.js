@@ -32,25 +32,31 @@ router.post('/reservation/:serviceId', (req,res)=>{
     })
 })
 
-router.get('/reservations/trainee/:traineeId',(req,res)=>{
-    Reservation.find({traineeId : req.params.traineeId, status : req.query.status}).exec((err,results)=>{
-        if(results) {
-            res.json({success : true, reservations : results})
+router.get('/reservations/user/:userId',(req,res)=>{
+    var token = req.body.token || req.headers['x-access-token'] || req.query.token
+    try {
+        var jwtObj = jwt.verify(token, config.TOKEN_SECRET)
+        if (jwtObj.id != req.params.userId) {
+            res.status(403).json({ success: false , message : 'Not Authorized'})
         } else {
-            res.json({success : false})
-        }
-    })
-})
+            let query = {}
+            if (jwtObj.role=='Trainee')
+                query['traineeId'] = req.params.userId
+            else if (jwtObj.role=='Trainer')
+                query['trainerId'] = req.params.userId 
+            query['status'] = req.query.status
 
-router.get('/reservations/trainer/:trainerId',(req,res)=>{
-    Reservation.find({trainerId : req.params.trainerId, status : req.query.status}).exec((err,results)=>{
-        if(results) {
-            console.log(results)
-            res.json({success : true, reservations : results})
-        } else {
-            res.json({success : false})
+            Reservation.find(query).exec((err,results)=>{
+                if(results) {
+                    res.json({success : true, reservations : results})
+                } else {
+                    res.json({success : false})
+                }
+            })
         }
-    })
+    } catch (e) {
+        res.status(403).json({ success: false , message : e})
+    }
 })
 
 router.route('/reservations/:id')
