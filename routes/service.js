@@ -1,6 +1,7 @@
 var express = require('express')
 var {Service} = require('../models/service.server.model')
 var {TimeSlot} = require('../models/timeSlot.server.model')
+var {Reservation} = require('../models/reservation.server.model')
 var moment = require('moment')
 var jwt = require('jsonwebtoken')
 var config = require('../config')
@@ -95,6 +96,34 @@ router.route('/services/:id')
                     if(result.trainerId != jwtObj.id){
                         res.status(403).json({success : false})
                     } else {
+                        Reservation.find({serviceId : result._id}).exec((err,results)=>{
+                            if (results) {
+                                results.forEach(function(reservation) {
+                                    reservation.remove((err)=>{
+                                        if (err) {
+                                            res.json('Error Removing Reservation' + err)
+                                        }
+                                    })
+                                })
+                            } else {
+                                res.json('Cannot find reservation' + err)
+                            }
+                        })
+
+                        TimeSlot.find({serviceId : result._id}).exec((err,results)=>{
+                            if (results) {
+                                results.forEach(function(timeslot) {
+                                    timeslot.remove((err)=>{
+                                        if (err) {
+                                            res.json('Error Removing Timeslot' + err)
+                                        }
+                                    })
+                                })
+                            } else {
+                                res.json('Cannot find timeslot' + err)
+                            }
+                        })
+
                         result.remove((err)=>{
                             if(err){
                                 res.json('Error Removing Service ' + err)
