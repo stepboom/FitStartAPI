@@ -1,18 +1,31 @@
 var express = require('express')
-var {Review} = require('../models/review.server.model')
+var { Review } = require('../models/review.server.model')
+var { User } = require('../models/user.server.model')
 
 var router = express.Router()
 
 router.post('/review', (req, res) => {
 	let newReview = new Review()
     newReview.trainerId = req.body.trainerId
+    newReview.reservationId = req.body.reservationId
     newReview.comment = req.body.comment
     newReview.rating = req.body.rating
-    
 
     newReview.save((err,result)=>{
         if (result) {
-            res.json({ success: true, review: newReview });
+           Review.aggregate([{ $match: { trainerId: parseInt(req.body.trainerId)}},{ $group: { _id: null, avg: { $avg: "$rating" } } }], (err, orders)=> {
+               if (orders) {
+                   User.findByIdAndUpdate(parseInt(req.body.trainerId), { rating: Math.round(orders[0].avg) }, (err, updated) => {
+                       if (updated) {
+                           res.json({ success: true, review: result })
+                       } else {
+                           res.json('Error Updating Trainer Rating ' + err)
+                       }
+                   })
+               } else {
+                   res.json('Error Calculating Trainer Rating ' + err)
+               }
+            })
         } else {
             res.json('Error Saving Review ' + err)
         }
