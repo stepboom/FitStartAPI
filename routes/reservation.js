@@ -103,7 +103,7 @@ router.route('/reservations/:id')
         var jwtObj = jwt.verify(token, config.TOKEN_SECRET)
         Reservation.findById(req.params.id, (err, result) => {
             if (result) {
-                if (jwtObj.id != result.trainerId || jwtObj.id != result.traineeId ) {
+                if (jwtObj.id != result.trainerId && jwtObj.id != result.traineeId ) {
                     res.status(403).json({ success: false , message : 'Not Authorized'})
                 } else {
                     result.remove((err)=>{
