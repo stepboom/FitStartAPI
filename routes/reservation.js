@@ -57,7 +57,7 @@ router.route('/reservations/:id')
 .get((req, res) => {
     Reservation.findOne({ _id: req.params.id }).exec((err, result) => {
         if (result) {
-            res.json({ Reservation: result })
+            res.json({ reservation: result })
         } else {
             res.json('No Reservation')
         }
