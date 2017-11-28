@@ -24,7 +24,7 @@ router.post('/reservation/:serviceId', (req,res)=>{
     newReservation.serviceId = req.params.serviceId
     newReservation.status = 1
     newReservation.save((err,result)=>{
-        if(results) {   
+        if(result) {   
             res.json({reservation : result})   
         } else {
             res.json('Error Saving Reservation :' + err)
@@ -75,7 +75,7 @@ router.route('/reservations/:id')
         var jwtObj = jwt.verify(token, config.TOKEN_SECRET)
         Reservation.findById(req.params.id, (err, result) => {
             if (result) {
-                if (jwtObj.id != result.trainerId || jwtObj.id != result.traineeId ) {
+                if (jwtObj.id != result.trainerId && jwtObj.id != result.traineeId ) {
                     res.status(403).json({ success: false , message : 'Not Authorized'})
                 } else {
                     for (var attrname in req.body) {
