@@ -1,5 +1,7 @@
 var express = require('express')
 var {Report} = require('../models/report.server.model')
+var jwt = require('jsonwebtoken')
+var config = require('../config')
 
 var router = express.Router()
 
@@ -19,12 +21,22 @@ router.post('/report', (req, res) => {
 })
 
 router.get('/reports',(req,res)=>{
-    Report.find({}).exec((err,results) => {
-        if(results)
-            res.json({reports : results})
-        else
-            res.json('No Reports')
-    })
+    var token = req.body.token || req.headers['x-access-token'] || req.query.token
+    try {
+        var jwtObj = jwt.verify(token,config.TOKEN_SECRET)
+        if(jwtOb.role != 'Admin'){
+            res.status(403).json({success : false, message : 'Not Authorized'})
+        } else {
+            Report.find({}).exec((err,results) => {
+                if(results)
+                    res.json({reports : results})
+                else
+                    res.json('No Reports')
+            })
+        }
+    } catch (e) {
+        res.status(403).json({success : false, message : e})
+    }
 })
 
 router.route('/reports/:id')
