@@ -511,12 +511,14 @@ var Entities = {
             comment: 'I hate him',
             trainerId: 1,
             traineeId: 1,
+            status: 0,
         },
         {
             _id: 2,
             comment: 'He is very bad, most of his advise is not practical',
             trainerId: 3,
             traineeId: 3,
+            status: 1,
         },
 
     ],

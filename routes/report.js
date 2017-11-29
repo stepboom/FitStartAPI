@@ -24,7 +24,7 @@ router.get('/reports',(req,res)=>{
     var token = req.body.token || req.headers['x-access-token'] || req.query.token
     try {
         var jwtObj = jwt.verify(token,config.TOKEN_SECRET)
-        if(jwtOb.role != 'Admin'){
+        if(jwtObj.role != 'Admin'){
             res.status(403).json({success : false, message : 'Not Authorized'})
         } else {
             Report.find({}).exec((err,results) => {
@@ -50,31 +50,51 @@ router.route('/reports/:id')
         })
     })
     .patch((req, res) => {
-        Report.findById(req.params.id, (err, result) => {
-            if (result) {
-                for (var attrname in req.body) {
-                    result[attrname] = req.body[attrname]
-                }
-                result.save((err, result) => {
+        var token = req.body.token || req.headers['x-access-token'] || req.query.token
+        try {
+            var jwtObj = jwt.verify(token,config.TOKEN_SECRET)
+            if(jwtOb.role != 'Admin'){
+                res.status(403).json({success : false, message : 'Not Authorized'})
+            } else {
+                Report.findById(req.params.id, (err, result) => {
                     if (result) {
-                        res.json({ report: result })
+                        for (var attrname in req.body) {
+                            result[attrname] = req.body[attrname]
+                        }
+                        result.save((err, result) => {
+                            if (result) {
+                                res.json({ report: result })
+                            } else {
+                                res.json('Error Saving Report : ' + err)
+                            }
+                        })
                     } else {
-                        res.json('Error Saving Report : ' + err)
+                        res.json('No Reports')
                     }
                 })
-            } else {
-                res.json('No Reports')
             }
-        })
+        } catch (e) {
+            res.status(403).json({success : false, message : e})
+        }
     })
     .delete((req, res) => {
-        Report.findByIdAndRemove(req.params.id, (err, result) => {
-            if (result) {
-                res.json({ success: true })
+        var token = req.body.token || req.headers['x-access-token'] || req.query.token
+        try {
+            var jwtObj = jwt.verify(token,config.TOKEN_SECRET)
+            if(jwtOb.role != 'Admin'){
+                res.status(403).json({success : false, message : 'Not Authorized'})
             } else {
-                res.json('Error Deleting Report ' + err)
+                Report.findByIdAndRemove(req.params.id, (err, result) => {
+                    if (result) {
+                        res.json({ success: true })
+                    } else {
+                        res.json('Error Deleting Report ' + err)
+                    }
+                })
             }
-        })
+        } catch (e) {
+            res.status(403).json({success : false, message : e})
+        }
 })
 
 router.get('/reports/search/items',(req,res)=>{

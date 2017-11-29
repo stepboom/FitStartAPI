@@ -17,6 +17,9 @@ let reportSchema = new Schema({
         type: Number,
         required: 'Please fill trainee ID'
     },
+    status : {
+        type: Number,
+    }
 })
 
 reportSchema.plugin(autoIncrement.plugin, {
