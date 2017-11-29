@@ -27,7 +27,8 @@ var Entities = {
             address : 'Nowhere',
             telephoneNumber : '081-123-4567',
             role : 'Trainer',
-            rating : 3
+            rating : 3,
+            status : 1,
         },
         {
             _id : 2,
@@ -39,7 +40,7 @@ var Entities = {
             gender : 1,
             address : 'Nowhere',
             telephoneNumber : '089-876-5432',
-            role : 'Trainee'
+            role : 'Trainee',
         },
         {
             _id : 3,
@@ -52,7 +53,8 @@ var Entities = {
             address : 'Nowhere',
             telephoneNumber : '088-888-7889',
             role : 'Trainer',
-            rating : 5
+            rating : 5,
+            status : 1,
         },
         {
             _id : 4,
@@ -65,7 +67,8 @@ var Entities = {
             address : 'Nowhere',
             telephoneNumber : '098-765-8877',
             role : 'Trainer',
-            rating : 4
+            rating : 4,
+            status : 1,
         },
         {
             _id : 5,
@@ -78,6 +81,18 @@ var Entities = {
             address : 'Timeless Place',
             telephoneNumber : '096-567-1155',
             role : 'Trainee',
+        },
+        {
+            _id : 6,
+            username : 'admin',
+            password : '12345678',
+            email : 'admin_fitstart@gmail.com',
+            firstName : 'Admin',
+            lastName : 'Nimda',
+            gender : 1,
+            address : 'Somewhere only we know',
+            telephoneNumber : '096-567-1155',
+            role : 'Admin',
         }
     ] ,
     Service : [

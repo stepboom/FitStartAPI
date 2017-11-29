@@ -34,7 +34,7 @@ router.route('/users/:id')
 		var token = req.body.token || req.headers['x-access-token'] || req.query.token
 		try {
 			var jwtObj = jwt.verify(token,config.TOKEN_SECRET)
-			if(jwtObj.id != req.params.id){
+			if(jwtObj.id != req.params.id || jwtObj.role != 'Admin'){
 				res.status(403).json({success : false, message : 'Not Authorized'})
 			} else {
 				User.findById(req.params.id,(err,result)=>{

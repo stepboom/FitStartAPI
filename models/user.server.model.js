@@ -55,6 +55,9 @@ let userSchema = new Schema({
     },
     rating :{
         type : Number
+    },
+    status : {
+        type : Number
     }
 })
 
