@@ -431,7 +431,7 @@ var Entities = {
             _id: 10,
             serviceId: 6,
             traineeId: 2,
-            trainerId: 5,
+            trainerId: 3,
             timeSlot: [13],
             status: 3,
             price : 1600
@@ -440,7 +440,7 @@ var Entities = {
             _id: 11,
             serviceId: 6,
             traineeId: 2,
-            trainerId: 5,
+            trainerId: 3,
             timeSlot: [14],
             status: 4,
             price : 1700
