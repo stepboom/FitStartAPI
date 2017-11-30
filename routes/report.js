@@ -82,7 +82,7 @@ router.route('/reports/:id')
         var token = req.body.token || req.headers['x-access-token'] || req.query.token
         try {
             var jwtObj = jwt.verify(token,config.TOKEN_SECRET)
-            if(jwtOb.role != 'Admin'){
+            if(jwtObj.role != 'Admin'){
                 res.status(403).json({success : false, message : 'Not Authorized'})
             } else {
                 Report.findByIdAndRemove(req.params.id, (err, result) => {
