@@ -73,7 +73,7 @@ router.route('/reservations/:id')
     var token = req.body.token || req.headers['x-access-token'] || req.query.token
     try {
         var jwtObj = jwt.verify(token, config.TOKEN_SECRET)
-        Reservation.findById(req.params.id, (err, result) => {
+        Reservation.findById(parseInt(req.params.id), (err, result) => {
             if (result) {
                 if (jwtObj.id != result.trainerId && jwtObj.id != result.traineeId ) {
                     res.status(403).json({ success: false , message : 'Not Authorized'})
