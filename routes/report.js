@@ -10,6 +10,7 @@ router.post('/report', (req, res) => {
     newReport.comment = req.body.comment
     newReport.trainerId = req.body.trainerId
     newReport.traineeId = req.body.traineeId
+    newReport.status = 0
 
     newReport.save((err,result)=>{
         if (result) {
