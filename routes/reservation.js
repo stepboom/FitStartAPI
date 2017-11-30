@@ -83,7 +83,17 @@ router.route('/reservations/:id')
                     }
                     result.save((err, result) => {
                         if (result) {
-                            res.json({ reservation: result })
+                            if(result.status==2) {
+                                TimeSlot.update({_id : {$in : result.timeSlot}},{$set : {status : 1}},{multi : true},(err, result2) => {
+                                    if (result2) {
+                                        res.json({ reservation: result })
+                                    } else {
+                                        res.json('Error Updating Reservation : ' + err)
+                                    }
+                                })
+                            } else {
+                                res.json({ reservation: result })    
+                            }
                         } else {
                             res.json('Error Saving Reservation : ' + err)
                         }
