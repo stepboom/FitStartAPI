@@ -35,7 +35,7 @@ router.get('/timeSlots',(req,res)=>{
 
 router.route('/timeSlots/service/:serviceId')
     .get((req, res) => {
-        TimeSlot.find({ serviceId: req.params.serviceId }).exec((err, results) => {
+        TimeSlot.find({ serviceId: req.params.serviceId }).sort({startTime : 1}).exec((err, results) => {
             if (results) {
                 res.json({ timeSlots: results })
             } else {
