@@ -510,14 +510,14 @@ var Entities = {
             _id: 1,
             comment: 'ตัวเทรนเนอร์เองไม่สามารถจัดการการออกกำลังกายได้ถูกต้อง',
             trainerId: 1,
-            traineeId: 1,
+            traineeId: 2,
             status: 0,
         },
         {
             _id: 2,
             comment: 'แย่มากครับไม่สามารถให้ความคิดเห็นที่ดีได้เลยครับ',
             trainerId: 3,
-            traineeId: 3,
+            traineeId: 5,
             status: 1,
         },
 
