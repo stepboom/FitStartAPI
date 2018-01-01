@@ -202,8 +202,8 @@ router.post('/forgetPassword',(req,res)=>{
 	var transporter = nodemailer.createTransport(smtpTransport({
 		service: 'gmail',
 		auth: {
-			user: 'supakritboom@gmail.com',
-			pass: 'qwer][po'
+			user: '**Your Email**',
+			pass: '**Your Password**'
 		}
 	}))
 
@@ -221,7 +221,7 @@ router.post('/forgetPassword',(req,res)=>{
 					res.send({success : false})
 				} else {
 					var mailOptions = {
-						from: 'supakritboom@gmail.com',
+						from: '**Your Email**',
 						to: email,
 						subject: 'ยืนยันการเปลี่ยนรหัสผ่านจากระบบ FitStart',
 						text: `กรุณาคลิกที่ลิ้งก์ http://localhost:3000/newpassword/${token} เพื่อเข้าสู่การตั้งรหัสผ่านใหม่`
